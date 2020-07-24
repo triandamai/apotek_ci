@@ -8,7 +8,7 @@ require APPPATH . '/libraries/REST_Controller.php';
 // use namespace
 use Restserver\Libraries\REST_Controller;
 
-class Chat extends REST_Controller {
+class Obat extends REST_Controller {
 
     function __construct()
     {
