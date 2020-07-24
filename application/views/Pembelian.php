@@ -64,6 +64,23 @@
     <div class="box">
       <form class="form-horizontal" method="post" action="<?=base_url('pembelian/save_temp'); ?>">
               <div class="box-body">
+              <!--  -->
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">No Faktur </label>
+
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="No Faktur" name="faktur" required>
+                  </div>
+                </div>
+                 <!--  -->
+                 <div class="form-group">
+                  <label class="col-sm-2 control-label">Tanggal Masuk </label>
+
+                  <div class="col-sm-8">
+                    <input type="date" class="form-control" placeholder="Jumlah Beli" name="tanggal_faktur" required>
+                  </div>
+                </div>
+                <!--  -->
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Nama Obat</label>
 
@@ -75,6 +92,43 @@
                   </select>
                   </div>
                 </div>
+                <!--  -->
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Satuan Beli </label>
+
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control" placeholder="Satuan Beli" name="satuan_beli" required>
+                  </div>
+                </div>
+                <!--  -->
+                 <!--  -->
+                 <div class="form-group">
+                  <label class="col-sm-2 control-label">Satuan Jual </label>
+
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control" placeholder="Satuan Jual" name="satuan_jual" required>
+                  </div>
+                </div>
+                <!--  -->
+                 <!--  -->
+                 <div class="form-group">
+                  <label class="col-sm-2 control-label">Expired </label>
+
+                  <div class="col-sm-8">
+                    <input type="date" class="form-control" placeholder="Kadaluarsa" name="expired" required>
+                  </div>
+                </div>
+                <!--  -->
+                 <!--  -->
+                 <div class="form-group">
+                  <label class="col-sm-2 control-label">Diskon(%) </label>
+
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control" placeholder="Diskon" name="diskon" required>
+                  </div>
+                </div>
+                <!--  -->
+                <!--  -->
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Jumlah </label>
 
@@ -111,6 +165,7 @@
                 <thead>
                 <tr>
                   <th>Nama Obat</th>
+                  <th>No Faktur</th>
                   <th>Jumlah</th>
                   <th>Harga</th>
                   <th>Action</th>
@@ -122,6 +177,7 @@
 		?>
 		<tr>
 			<td><?php echo $tmp->temp_nama ?></td>
+      <td><?php echo $tmp->temp_faktur ?></td>
             <td><?php echo $tmp->temp_jumlah ?></td>
             <td><?php echo $tmp->temp_totalharga ?></td>
             <td><a href="<?= base_url('pembelian/delete_temp/'); ?><?php echo $tmp->temp_id ?>/<?php if($asd != null) {
@@ -146,6 +202,7 @@
             }
             ?>">
         <input type="hidden" name="subtotal" value= "<?= $totalharga; ?>">
+        <input type="hidden" name="faktur" value= "<?=  $tmp->temp_faktur; ?>">
         <div class="col-sm-10">
                     <input type="submit" class="btn btn-info pull-left" name="submit"/>
         </div>

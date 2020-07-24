@@ -21,6 +21,7 @@
             <h3>ID Transaksi : <?=$pembelians->pembelian_id_transaksi; ?></h3>
             <h3>Tanggal : <?=$pembelians->pembelian_tanggal; ?></h3>
             <h3>Supplier : <?=$pembelians->pembelian_supplier; ?></h3>
+            <h3>Faktur : <?=$pembelians->pembelian_faktur; ?></h3>
         <table id="table" class="table table-bordered table-hover">
                 <thead>
                 <tr>
