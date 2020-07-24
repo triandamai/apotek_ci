@@ -65,4 +65,48 @@ class Obat extends REST_Controller {
     
         }
     }
+    public function obat_post(){
+
+         $jsonArray = json_decode(file_get_contents('php://input'),true);
+         $data = $this->model->save($jsonArray,'tb_obat');
+      
+        if($data){
+            return $this->response(array(
+                "status"                => true,
+                "response_code"         => REST_Controller::HTTP_OK,
+                "response_message"      => "Berhasil",
+                "data"                  => $jsonArray,
+            ), REST_Controller::HTTP_OK);
+        }else{
+            return $this->response(array(
+                "status"                => false,
+                "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                "response_message"      => "Gagal Mendapatkan Data",
+                "data"                  => null,
+            ), REST_Controller::HTTP_OK);
+        }
+
+    }
+    public function obat_put(){
+
+        $jsonArray = json_decode(file_get_contents('php://input'),true);
+        $data = $this->model->update(array("obat_id"=>$jsonArray['obat_id']),$jsonArray,'tb_obat');
+     
+       if($data){
+           return $this->response(array(
+               "status"                => true,
+               "response_code"         => REST_Controller::HTTP_OK,
+               "response_message"      => "Berhasil",
+               "data"                  => null,
+           ), REST_Controller::HTTP_OK);
+       }else{
+           return $this->response(array(
+               "status"                => false,
+               "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+               "response_message"      => "Gagal Mendapatkan Data",
+               "data"                  => null,
+           ), REST_Controller::HTTP_OK);
+       }
+
+   }
 }
