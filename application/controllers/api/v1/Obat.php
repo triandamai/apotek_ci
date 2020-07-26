@@ -21,7 +21,7 @@ class Obat extends REST_Controller {
         // $this->methods['komentar_delete']['limit'] = 50; // 50 requests per hour per user/key
     }
 
-    public function obat_get()
+    public function obats_get()
     {
         $id = $this->get('id');
         if ($id === NULL)
@@ -109,4 +109,26 @@ class Obat extends REST_Controller {
        }
 
    }
+   public function obat_delete(){
+
+    $jsonArray = json_decode(file_get_contents('php://input'),true);
+    $data = $this->model->delete(array("obat_id"=>$jsonArray['obat_id']),'tb_obat');
+ 
+   if($data){
+       return $this->response(array(
+           "status"                => true,
+           "response_code"         => REST_Controller::HTTP_OK,
+           "response_message"      => "Berhasil",
+           "data"                  => null,
+       ), REST_Controller::HTTP_OK);
+   }else{
+       return $this->response(array(
+           "status"                => false,
+           "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+           "response_message"      => "Gagal Mendapatkan Data",
+           "data"                  => null,
+       ), REST_Controller::HTTP_OK);
+   }
+
+}
 }
