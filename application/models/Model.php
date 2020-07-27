@@ -112,7 +112,6 @@ class Model extends CI_Model
     $this->db->join($table."_detail",$table."_detail.detail_id_transaksi = ".substr($table, 3) . "_id","left");
     return $this->db->get()->result_array();
   }
-
 }
 
 /* End of file Model.php */
