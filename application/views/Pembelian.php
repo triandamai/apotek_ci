@@ -64,49 +64,97 @@
     <div class="box">
       <form class="form-horizontal" method="post" action="<?=base_url('pembelian/save_temp'); ?>">
               <div class="box-body">
+               <!--  -->
+               <div class="form-group">
+                  <label class="col-sm-2 control-label">Nama Obat</label>
+
+                  <div class="col-sm-8">
+                  <select class="form-control" name="nama_obat">
+                  <?php foreach($obats as $obat){ ?>
+                    <option value="<?= $obat->obat_id; ?>"><?= $obat->obat_nama; ?></option>
+                    
+                  <?php } ?>
+                  </select>
+                  </div>
+                </div>
+                <!--  -->
               <!--  -->
               <div class="form-group">
                   <label class="col-sm-2 control-label">No Faktur </label>
 
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" placeholder="No Faktur" name="faktur" required>
+                    <input type="text" class="form-control" placeholder="No Faktur" name="no_faktur" required>
                   </div>
                 </div>
                  <!--  -->
-                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Tanggal Masuk </label>
+                  <!--  -->
+                  <div class="form-group">
+                  <label class="col-sm-2 control-label">Tanggal Faktur</label>
 
                   <div class="col-sm-8">
                     <input type="date" class="form-control" placeholder="Jumlah Beli" name="tanggal_faktur" required>
                   </div>
                 </div>
                 <!--  -->
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Nama Obat</label>
+                 <div class="form-group">
+                  <label class="col-sm-2 control-label">Tanggal Masuk </label>
 
                   <div class="col-sm-8">
-                  <select class="form-control" name="nama_obat">
-                  <?php foreach($obats as $obat){ ?>
-                    <option value="<?= $obat->obat_nama; ?>"><?= $obat->obat_nama; ?></option>
-                  <?php } ?>
+                    <input type="date" class="form-control" placeholder="Jumlah Beli" name="tanggal_masuk" required>
+                  </div>
+                </div>
+                <!-- Box, ampul, fles, vial, pcs, tab, btl, ktk -->
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">Satuan Beli</label>
+
+                  <div class="col-sm-8">
+                  <select class="form-control" name="satuan_beli">
+  
+                    <option value="BOX">BOX</option>
+                    <option value="ampul">ampul</option>
+                    <option value="fles">fles</option>
+                    <option value="vial">vial</option>
+                    <option value="pcs">pcs</option>
+                    <option value="tab">tab</option>
+                    <option value="ktk">btl</option>
                   </select>
                   </div>
                 </div>
+                 <!--  -->
+               
                 <!--  -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label class="col-sm-2 control-label">Satuan Beli </label>
 
                   <div class="col-sm-8">
                     <input type="number" class="form-control" placeholder="Satuan Beli" name="satuan_beli" required>
                   </div>
-                </div>
+                </div> -->
                 <!--  -->
                  <!--  -->
-                 <div class="form-group">
+                 <!-- <div class="form-group">
                   <label class="col-sm-2 control-label">Satuan Jual </label>
 
                   <div class="col-sm-8">
                     <input type="number" class="form-control" placeholder="Satuan Jual" name="satuan_jual" required>
+                  </div>
+                </div> -->
+                <!--  -->
+                <!--  -->
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Harga Beli </label>
+
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control" placeholder="Harga beli" name="harga_beli" required>
+                  </div>
+                </div>
+                <!--  -->
+                                <!--  -->
+                                <div class="form-group">
+                  <label class="col-sm-2 control-label">Harga Jual</label>
+
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control" placeholder="Harga Jual" name="harga_jual" required>
                   </div>
                 </div>
                 <!--  -->

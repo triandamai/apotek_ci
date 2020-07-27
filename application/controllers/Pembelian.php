@@ -58,11 +58,13 @@ class Pembelian extends CI_Controller {
     foreach ($query->result() as $row) {
         $data1 = array(
             'detail_id_transaksi' => $insertid,
-			'detail_obat' => $row->temp_nama,
+            'detail_nama' => $row->temp_nama,
+            'detail_obat_id' => $row->temp_obat_id,
+            'detail_harga_beli'=> $row->temp_harga_beli,
+            'detail_harga_jual'=>$row->temp_harga_jual,
             'detail_jumlah' => $row->temp_jumlah,
             'detail_harga' => $row->temp_totalharga,
             'detail_satuan_beli' =>$row->temp_satuan_beli,
-            'detail_satuan_jual'=>$row->temp_satuan_jual,
             'detail_diskon'=>$row->temp_diskon,
             'detail_expired'=>$row->temp_expired,
             'detail_tanggal_terima'=>$row->temp_tanggal_terima,
@@ -79,26 +81,34 @@ class Pembelian extends CI_Controller {
 
     public function save_temp() {
         //get user input
-        $nama = $this->input->post('nama_obat');
-        $faktur = $this->input->post('faktur');
+        $nama_obat = $this->input->post('nama_obat');
+        $faktur = $this->input->post('no_faktur');
+     
         $tanggal_masuk = $this->input->post('tanggal_faktur');
         $satuan_beli = $this->input->post('satuan_beli');
-        $satuan_jual = $this->input->post('satuan_jual');
+        $harga_beli = $this->input->post('harga_beli');
+        $harga_jual = $this->input->post('harga_jual');
+       
         $expired = $this->input->post('expired');
         $diskon = $this->input->post('diskon');
         $id_supplier = $this->input->post('ids');
         $jumlah = $this->input->post('jumlah');
         //check if temporary data exist with the same nama obat
-        $check = $this->model->getById('tb_pembelian_temp', ['temp_nama' => $nama])->num_rows();
+        $check = $this->model->getById('tb_pembelian_temp', ['temp_obat_id' => $nama_obat])->num_rows();
         //if data not exist, insert new data
+    
         if($check == 0) {
-        $hargaa = $this->model->getSingleValue('tb_obat', 'obat_beli', ['obat_nama' => $nama]);
+        $hargaa = $this->model->getById('tb_obat', ['obat_id' => $nama_obat])->row();
+       
         $harga = $hargaa->obat_beli * $jumlah;
+        $nama = $hargaa->obat_nama;
 		$data = array(
             'temp_faktur' => $faktur,
             'temp_nama' => $nama,
+            'temp_obat_id' => $nama_obat,
             'temp_satuan_beli' =>$satuan_beli,
-            'temp_satuan_jual'=>$satuan_jual,
+            'temp_harga_beli'=>$harga_beli,
+            'temp_harga_jual'=>$harga_jual,
             'temp_diskon'=>$diskon,
             'temp_expired'=>$expired,
             'temp_tanggal_terima'=>$tanggal_masuk,
@@ -110,16 +120,18 @@ class Pembelian extends CI_Controller {
             redirect('pembelian/index');
             //if data exist, update the data
         }elseif($check > 0) {
-            $hargaa = $this->model->getSingleValue('tb_obat', 'obat_beli', ['obat_nama' => $nama]);
-            $jumlahh = $this->model->getSingleValue('tb_pembelian_temp', 'temp_jumlah', ['temp_nama' => $nama]);
+            $hargaa = $this->model->getById('tb_obat', ['obat_id' => $nama_obat])->row();
+            $jumlahh = $this->model->getSingleValue('tb_pembelian_temp', 'temp_jumlah', ['temp_obat_id' => $nama_obat]);
 
             $new = $jumlah + $jumlahh->temp_jumlah;
-        $harga = $hargaa->obat_beli * $new ;
+        $harga = $hargaa->obat_beli * $new ;  $nama = $hargaa->obat_id;
         $data = array(
             'temp_faktur' => $faktur,
             'temp_nama' => $nama,
+            'temp_obat_id' => $nama_obat,
             'temp_satuan_beli' =>$satuan_beli,
-            'temp_satuan_jual'=>$satuan_jual,
+            'temp_harga_beli'=>$harga_beli,
+            'temp_harga_jual'=>$harga_jual,
             'temp_diskon'=>$diskon,
             'temp_expired'=>$expired,
             'temp_tanggal_terima'=>$tanggal_masuk,
