@@ -193,7 +193,7 @@ class Penjualan extends REST_Controller {
     public function penjualan_post(){
 
         $jsonArray = json_decode(file_get_contents('php://input'),true);
-        $data = $this->model->update(array("temp_obat_id"=>$jsonArray['temp_obat_id']),$jsonArray,'tb_obat');
+       
 
     
             //get user input
@@ -217,6 +217,7 @@ class Penjualan extends REST_Controller {
                     $dataloop = array(
                         'detail_id_transaksi' => $insertid,
                         'detail_obat' => $row->temp_nama,
+                        'detail_obat_id' => $row->temp_obat_id,
                         'detail_jumlah' => $row->temp_jumlah,
                         'detail_harga' => $row->temp_totalharga
                     );
@@ -224,7 +225,7 @@ class Penjualan extends REST_Controller {
               
                 }
                 //empty the temporary table
-                    $simpan = $this->model->save_batch("tb_penjualan",$data_insert);
+                    $simpan = $this->model->save_batch("tb_penjualan_detail",$data_insert);
                     if($simpan){
                         $this->db->empty_table('tb_penjualan_temp'); 
                         return $this->response(array(
