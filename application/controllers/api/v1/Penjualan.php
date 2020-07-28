@@ -53,17 +53,13 @@ class Penjualan extends REST_Controller {
     
         }else {
             
-            
-        $data = $this->DataModel->select('*');
-       
-        $data = $this->DataModel->getJoin('tb_pembelian_detail as stok','stok.detail_id = detail.detail_id_stok','INNER');
-        $data = $this->DataModel->getJoin('tb_pembelian as pembelian','pembelian.pembelian_id = stok.detail_id_transaksi','INNER');
-        $data = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = stok.detail_obat_id','INNER');
-        $data = $this->DataModel->getJoin('tb_penjualan as penjualan','penjualan.penjualan_id = detail.detail_id_transaksi','INNER');
-        $data = $this->DataModel->getJoin('tb_supplier as suplier','suplier.supplier_id = pembelian.pembelian_id_supplier','INNER');
-        $data = $this->db->where("detail.detail_id_transaksi ",$id);
-        $data = $this->DataModel->order_by("detail.detail_id","ASC");
-        $data = $this->DataModel->getData('tb_penjualan_detail AS detail');
+            $data = $this->DataModel->select('*');
+            $data = $this->DataModel->getJoin('tb_pembelian_detail as stok','stok.detail_id = detail.temp_id_stok','INNER');
+            $data = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = stok.detail_obat_id','INNER');
+            $data = $this->db->where("detail.detail_id_transaksi ",$id);
+            $data = $this->DataModel->order_by("detail.temp_id","ASC");
+            $data = $this->DataModel->getData('tb_penjualan_temp AS detail');    
+
             if($data && $data->num_rows() >= 1){
                 return $this->response(array(
                     "status"                => true,
@@ -134,7 +130,8 @@ class Penjualan extends REST_Controller {
         {
 
             $data = $this->DataModel->select('*');
-            $data = $this->DataModel->getJoin('tb_obat as o','o.obat_id = c.detail_obat_id','INNER');
+            $data = $this->DataModel->getJoin('tb_pembelian_detail as p','p.detail_id = c.detail_id_stok','INNER');
+            $data = $this->DataModel->getJoin('tb_obat as o','o.obat_id = p.detail_obat_id','INNER');
             $data = $this->DataModel->order_by("c.detail_id","ASC");
             $data = $this->DataModel->getData('tb_penjualan_detail AS c');
             if($data && $data->num_rows() >= 1){
@@ -154,9 +151,9 @@ class Penjualan extends REST_Controller {
             }
     
         }else {
-            
             $data = $this->DataModel->select('*');
-            $data = $this->DataModel->getJoin('obat as o','o.obat_id = c.obat_id','INNER');
+            $data = $this->DataModel->getJoin('tb_pembelian_detail as p','p.detail_id = c.detail_id_stok','INNER');
+            $data = $this->DataModel->getJoin('tb_obat as o','o.obat_id = p.detail_obat_id','INNER');
             $data = $this->db->where("c.detail_id_transaksi ",$id);
             $data = $this->DataModel->order_by("c.detail_id","ASC");
             $data = $this->DataModel->getData('tb_penjualan_detail AS c');
