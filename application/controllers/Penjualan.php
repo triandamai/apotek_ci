@@ -151,8 +151,7 @@ class Penjualan extends CI_Controller {
         $data['details'] = $this->db->where("detail.detail_id_transaksi ",$id);
         $data['details'] = $this->DataModel->order_by("detail.detail_id","ASC");
         $data['details'] = $this->DataModel->getData('tb_penjualan_detail AS detail')->result();
-        var_dump($data);
-        die();
+    
 		$this->load->view('template',$data);   
     }
 
