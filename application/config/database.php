@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $active_group = 'default';
 $query_builder = TRUE;
-
+//mysql://b1b9c252a38f15:c0a7a1b2@us-cdbr-east-02.cleardb.com/heroku_1eea0f5711a4172?reconnect=true
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
