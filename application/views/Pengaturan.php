@@ -37,14 +37,14 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Nama Apotek</label>
                   <div class="col-sm-8">
-                  <input class="form-control" name="nama_apotek" placeholder="Value">
+                  <input class="form-control" name="nama_apotek" value="<?= $pengaturan->nama_apotek?>" placeholder="Value">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Alamat</label>
 
                   <div class="col-sm-8">
-                  <input class="form-control" name="alamat" placeholder="Value">
+                  <input class="form-control" name="alamat" value="<?= $pengaturan->alamat_apotek?>" placeholder="Value">
                   </div>
                 </div>
               </div>
@@ -69,14 +69,14 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Expired Date</label>
                   <div class="col-sm-8">
-                  <input class="form-control" name="nama_apotek" placeholder="Value">
+                  <input class="form-control" name="nama_apotek" value="<?= $pengaturan->notifikasi_expired?>" placeholder="Value">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Stok Minimal</label>
 
                   <div class="col-sm-8">
-                  <input class="form-control" name="alamat" placeholder="Value">
+                  <input class="form-control" name="alamat" value="<?= $pengaturan->stok_minimal?>" placeholder="Value">
                   </div>
                 </div>
               </div>

@@ -16,7 +16,7 @@ class Obat extends CI_Controller {
 
     public function index()
     {
-        $data['content'] = 'obat';
+        $data['content'] = 'Obat';
         $data['pagetitle'] = 'Obat';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
