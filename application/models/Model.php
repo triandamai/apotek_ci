@@ -94,32 +94,6 @@ class Model extends CI_Model
       $this->db->where("MONTH(penjualan_tanggal)", $data['bulan']);
       $this->db->from("tb_penjualan");
       $this->db->join("tb_penjualan_detail", "tb_penjualan_detail.detail_id_transaksi = penjualan_id", "left");
-      return $this->db->get()->row();
-    }
-  }
-
-  public function getExport($data)
-  {
-    if ($data['jenis'] != 3) {
-      if ($data['jenis'] == 1) {
-        $table = "tb_penjualan";
-      } else if ($data['jenis'] == 2) {
-        $table = "tb_pembelian";
-      }
-      $this->db->select('*');
-      $this->db->where("MONTH(" . substr($table, 3) . "_tanggal)", $data['bulan']);
-      $this->db->from($table);
-      $this->db->join($table . "_detail", $table . "_detail.detail_id_transaksi = " . substr($table, 3) . "_id", "left");
-      return $this->db->get()->result_array();
-    } else {
-      $this->db->select('SUM(detail_jumlah) as item_penjualan,SUM(penjualan_subtotal) as total_penjualan');
-      $this->db->where("MONTH(penjualan_tanggal)", $data['bulan']);
-      $this->db->from("tb_penjualan");
-      $this->db->join("tb_penjualan_detail", "tb_penjualan_detail.detail_id_transaksi = penjualan_id", "left");
-      // $sql = "SELECT SUM(detail_jumlah) as item_penjualan, SUM(penjualan_subtotal) as total_penjualan FROM tb_penjualan
-      //   LEFT JOIN tb_penjualan_detail ON tb_penjualan_detail.detail_id_transaksi = tb_penjualan.penjualan_id
-      //   WHERE MONTH(penjualan_tanggal) = ".$data['bulan']."";
-      // $this->db->query($sql);
       return $this->db->get()->row_array();
     }
   }

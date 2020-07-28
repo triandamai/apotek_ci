@@ -89,7 +89,7 @@
                         <?php } ?>
                     </div>
                     <div class="col-lg-12" style="margin-top:10px">
-                        <?php if (!empty($dataOutput) && $inJenis != 3) { ?>
+                        <?php if (!empty($inJenis) && $inJenis != 3 ) { ?>
                             <table id="table" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -117,8 +117,46 @@
                                         </tr>
                                     <?php } ?>
                             </table>
-                        <?php }else{ ?>
-                            
+                        <?php } else if (!empty($inJenis) && $inJenis == 3) { ?>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-2">
+
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <b>Total Harga Penjualan</b>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" value="Rp. <?= number_format($dataOutput['total_penjualan'], 0, ',', '.') ?>" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin-top: 20px;">
+                                <div class="row">
+                                    <div class="col-lg-2">
+
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <b>Total Harga Pembelian</b>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" value="Rp. <?= number_format($dataOutput['total_pembelian'], 0, ',', '.') ?>" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin-top: 50px;">
+                                <div class="row">
+                                    <div class="col-lg-2">
+
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <b>Laba / Rugi</b>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" value="Rp. <?= number_format($dataOutput['total_penjualan'] - $dataOutput['total_pembelian'], 0, ',', '.') ?>" disabled>
+                                    </div>
+                                </div>
+                            </div>
                         <?php } ?>
                     </div>
                 </div>
