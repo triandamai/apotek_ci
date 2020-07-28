@@ -38,7 +38,6 @@ class Laporan extends CI_Controller
                 "jenis" => $jenis
             ];
             $dataOutput = $this->model->getLaporan($input);
-            $data['dataOutput'] = $dataOutput;
             $data['inJenis'] = $jenis;
             $data['inBulan'] = $bulan;
             if ($jenis == 1) {
@@ -46,7 +45,11 @@ class Laporan extends CI_Controller
             } else if ($jenis == 2) {
                 $data['jenis'] = 'pembelian';
             } else {
+                $data['jenis'] = 'laba / rugi';
+                $dataPembelian = $this->model->getPembelian($input);
+                $dataOutput = array_merge($dataOutput,$dataPembelian);
             }
+            $data['dataOutput'] = $dataOutput;
         }
         $this->load->view('template', $data);
     }
@@ -64,7 +67,7 @@ class Laporan extends CI_Controller
             "bulan" => $bulan,
             "jenis" => $jenis
         ];
-        $dataOutput = $this->model->getExport($input);
+        $dataOutput = $this->model->getLaporan($input);
         // die(json_encode($dataOutput));
         if ($jenis == 1) {
             $j = 'penjualan';
@@ -88,7 +91,7 @@ class Laporan extends CI_Controller
                     ],
                 ],
             ];
-            if ($j == 3) {
+            if ($jenis == 3) {
 
                 $inputFileName = FCPATH . 'assets/template/template_laporan_laba_rugi.xlsx';
 
@@ -96,6 +99,13 @@ class Laporan extends CI_Controller
                 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
                 // $spreadsheet = new Spreadsheet();
                 $sheet = $spreadsheet->getActiveSheet();
+                $dataPembelian = $this->model->getPembelian($input);
+                $dataOutput = array_merge($dataOutput,$dataPembelian);
+                $sheet->setCellValue('E5',$dataOutput['item_pembelian']);
+                $sheet->setCellValue('E6',$dataOutput['total_pembelian']);
+                $sheet->setCellValue('E9',$dataOutput['item_penjualan']);
+                $sheet->setCellValue('E10',$dataOutput['total_penjualan']);
+                $sheet->setCellValue('E13',($dataOutput['total_penjualan'] - $dataOutput['total_pembelian']));
             } else {
                 $inputFileName = FCPATH . 'assets/template/template_laporan_penjualan_pembelian.xlsx';
 
