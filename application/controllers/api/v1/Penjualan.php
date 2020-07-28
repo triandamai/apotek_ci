@@ -171,15 +171,14 @@ class Penjualan extends REST_Controller {
         if($jsonArray['temp_id'] != null){
             $check = $this->model->getById('tb_penjualan_temp', ['temp_id' => $jsonArray['temp_id']])->num_rows();
             if($check && $check >= 0){
-                $ambilharga = $this->model->getSingleValue('tb_obat', 'obat_jual', ['obat_id' => $jsonArray['temp_obat_id']]);
+                $ambilharga = $this->model->getSingleValue('tb_pembelian_detail', 'detail_harga_jual', ['detail_id' => $jsonArray['temp_id_stok']]);
                 $jumlah = $this->model->getSingleValue('tb_penjualan_temp', 'temp_jumlah', ['temp_id' => $jsonArray['temp_id']]);
 
                 $new = $jsonArray['temp_jumlah'] + $jumlah->temp_jumlah;
-                $harga = $ambilharga->obat_jual * $new ;
+                $harga = $ambilharga->detail_harga_jual * $new ;
  
 		        $data = array(
-                    'temp_nama' => $jsonArray['temp_nama'],
-                    'temp_obat_id' => $jsonArray['temp_obat_id'],
+                    'temp_id_stok' => $jsonArray['temp_id_stok'],
 			        'temp_jumlah' => $new,
                     'temp_totalharga' => $harga,
                 );
@@ -205,19 +204,18 @@ class Penjualan extends REST_Controller {
                 return $this->response(array(
                     "status"                => false,
                     "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
-                    "response_message"      => "Gagal Menyimpan Data",
+                    "response_message"      => "Tidak Ada Data",
                     "data"                  => null,
                 ), REST_Controller::HTTP_OK);
             }
         }else{
-            $ambilharga = $this->model->getSingleValue('tb_obat', 'obat_jual', ['obat_id' => $jsonArray['temp_obat_id']]);
-            $harga = $ambilharga->obat_jual * $jsonArray['temp_jumlah'];
+            $ambilharga = $this->model->getSingleValue('tb_pembelian_detail', 'detail_harga_jual', ['detail_id' => $jsonArray['temp_id_stok']]);
+            $harga = $ambilharga->detail_harga_jual * $jsonArray['temp_jumlah'];
  
 		    $data = array(
-                'temp_nama' => $jsonArray['temp_nama'],
-                'temp_obat_id' => $jsonArray['temp_obat_id'],
+                'temp_id_stok' => $jsonArray['temp_id_stok'],
 			    'temp_jumlah' => $jsonArray['temp_jumlah'],
-                'temp_totalharga' => $jsonArray['temp_totalharga'],
+                'temp_totalharga' => $harga,
             );
             $simpan = $this->model->save($data,'tb_penjualan_temp');
           

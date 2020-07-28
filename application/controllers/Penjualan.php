@@ -11,19 +11,32 @@ class Penjualan extends CI_Controller {
         $this->model->auth();
         //set default timezone
         date_default_timezone_set("Asia/Jakarta");
+        $this->load->model('DataModel');
 	}
     
 
     public function index()
     {
-        $data['content'] = 'Penjualan';
-        $data['pagetitle'] = 'Penjualan';
-        //if datatatables = 1 apply the javascript for datatable
+        // $data['content'] = 'Penjualan';
+        // $data['pagetitle'] = 'Penjualan';
+        // //if datatatables = 1 apply the javascript for datatable
+        // $data['datatables'] = '1';
+        // //get data obat and temporary
+        // $data['obats'] = $this->model->getAll('tb_obat')->result();
+        // $data['temp'] = $this->model->getAll('tb_penjualan_temp')->result();
+        // $this->load->view('template',$data);   
+        
+
+
+        //yang diatas asline jangan di hapus
+        $data['content'] = 'RiwayatPenjualan';
+        $data['pagetitle'] = 'Riwayat Penjualan';
+         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
-        //get data obat and temporary
-        $data['obats'] = $this->model->getAll('tb_obat')->result();
-        $data['temp'] = $this->model->getAll('tb_penjualan_temp')->result();
-		$this->load->view('template',$data);   
+        //get data detail penjualan
+        $data['penjualans'] = $this->model->getAll('tb_penjualan')->result();
+       
+		$this->load->view('template',$data); 
     }
 
 
@@ -126,7 +139,20 @@ class Penjualan extends CI_Controller {
          //get detail penjualan based on id
         $data['id'] = $id;
         $data['penjualans'] = $this->model->getById('tb_penjualan', ['penjualan_id' => $id])->row();
-        $data['details'] = $this->model->getById('tb_penjualan_detail', ['detail_id_transaksi' => $id])->result();
+        // $data['details'] = $this->model->getById('tb_penjualan_detail', ['detail_id_transaksi' => $id])->result();
+
+        $data['details'] = $this->DataModel->select('*');
+       
+        $data['details'] = $this->DataModel->getJoin('tb_pembelian_detail as stok','stok.detail_id = detail.detail_id_stok','INNER');
+        $data['details'] = $this->DataModel->getJoin('tb_pembelian as pembelian','pembelian.pembelian_id = stok.detail_id_transaksi','INNER');
+        $data['details'] = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = stok.detail_obat_id','INNER');
+        $data['details'] = $this->DataModel->getJoin('tb_penjualan as penjualan','penjualan.penjualan_id = detail.detail_id_transaksi','INNER');
+        $data['details'] = $this->DataModel->getJoin('tb_supplier as suplier','suplier.supplier_id = pembelian.pembelian_id_supplier','INNER');
+        $data['details'] = $this->db->where("detail.detail_id_transaksi ",$id);
+        $data['details'] = $this->DataModel->order_by("detail.detail_id","ASC");
+        $data['details'] = $this->DataModel->getData('tb_penjualan_detail AS detail')->result();
+        var_dump($data);
+        die();
 		$this->load->view('template',$data);   
     }
 
