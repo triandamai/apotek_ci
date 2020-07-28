@@ -16,7 +16,7 @@ class Pembelian extends CI_Controller {
 
     public function index()
     {
-        $data['content'] = 'pembelian';
+        $data['content'] = 'Pembelian';
         $data['pagetitle'] = 'Pembelian';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
@@ -143,7 +143,7 @@ class Pembelian extends CI_Controller {
 
     public function daftar()
     {
-        $data['content'] = 'riwayatpembelian';
+        $data['content'] = 'RiwayatPembelian';
         $data['pagetitle'] = 'Riwayat Pembelian';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
@@ -154,7 +154,7 @@ class Pembelian extends CI_Controller {
 
     public function detail($id) 
     {
-        $data['content'] = 'detailpembelian';
+        $data['content'] = 'DetailPembelian';
         $data['pagetitle'] = 'Detail Pembelian';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';

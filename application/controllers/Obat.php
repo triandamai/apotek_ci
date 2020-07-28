@@ -16,7 +16,7 @@ class Obat extends CI_Controller {
 
     public function index()
     {
-        $data['content'] = 'obat';
+        $data['content'] = 'Obat';
         $data['pagetitle'] = 'Obat';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
@@ -27,7 +27,7 @@ class Obat extends CI_Controller {
 
     public function tambah()
     {
-        $data['content'] = 'tambahobat';
+        $data['content'] = 'TambahObat';
         $data['pagetitle'] = 'Tambah Obat';
 		$this->load->view('template',$data);   
     }
@@ -54,7 +54,7 @@ class Obat extends CI_Controller {
 
     public function edit($id)
     {
-        $data['content'] = 'editobat';
+        $data['content'] = 'EditObat';
         $data['pagetitle'] = 'Edit Obat';
         //get data obat based on id
         $data['obats'] = $this->model->getById('tb_obat', ['obat_id' => $id])->row();

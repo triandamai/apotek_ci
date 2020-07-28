@@ -16,7 +16,7 @@ class Penjualan extends CI_Controller {
 
     public function index()
     {
-        $data['content'] = 'penjualan';
+        $data['content'] = 'Penjualan';
         $data['pagetitle'] = 'Penjualan';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
@@ -108,7 +108,7 @@ class Penjualan extends CI_Controller {
 
     public function daftar()
     {
-        $data['content'] = 'riwayatpenjualan';
+        $data['content'] = 'RiwayatPenjualan';
         $data['pagetitle'] = 'Riwayat Penjualan';
          //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
@@ -119,7 +119,7 @@ class Penjualan extends CI_Controller {
 
     public function detail($id) 
     {
-        $data['content'] = 'detailpenjualan';
+        $data['content'] = 'DetailPenjualan';
         $data['pagetitle'] = 'Detail Penjualan';
          //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';

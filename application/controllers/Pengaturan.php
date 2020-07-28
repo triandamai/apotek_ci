@@ -16,7 +16,7 @@ class Pengaturan extends CI_Controller {
 
     public function index()
     {
-        $data['content'] = 'pengaturan';
+        $data['content'] = 'Pengaturan';
         $data['pagetitle'] = 'Pengaturan';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '0';

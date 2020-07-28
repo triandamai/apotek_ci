@@ -89,33 +89,37 @@
                         <?php } ?>
                     </div>
                     <div class="col-lg-12" style="margin-top:10px">
-                        <table id="table" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID Transaksi</th>
-                                    <th>Tanggal</th>
-                                    <th>Subtotal</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                if (!empty($dataOutput)) {
-                                    foreach ($dataOutput as $key => $val) {
-                                ?>
-                                        <tr>
-                                            <td><?php echo $val[$jenis . '_id_transaksi'] ?></td>
-                                            <td><?php echo $val[$jenis . '_tanggal'] ?></<td>
-                                            <td><?php echo $val[$jenis . '_subtotal'] ?></td>
-                                            <td><a href="<?= base_url($jenis . '/detail/'); ?><?php echo $val[$jenis . '_id'] ?>" class="btn btn-info">Detail</a></td>
-                                        </tr>
-                                    <?php }
-                                } else { ?>
+                        <?php if (!empty($dataOutput) && $inJenis != 3) { ?>
+                            <table id="table" class="table table-bordered table-hover">
+                                <thead>
                                     <tr>
-                                        <td colspan="4" class="text-center"><b>Data Kosong</b></td>
+                                        <th>ID Transaksi</th>
+                                        <th>Tanggal</th>
+                                        <th>Subtotal</th>
+                                        <th>Action</th>
                                     </tr>
-                                <?php } ?>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    if (!empty($dataOutput)) {
+                                        foreach ($dataOutput as $key => $val) {
+                                    ?>
+                                            <tr>
+                                                <td><?php echo $val[$jenis . '_id_transaksi'] ?></td>
+                                                <td><?php echo $val[$jenis . '_tanggal'] ?></<td>
+                                                <td><?php echo $val[$jenis . '_subtotal'] ?></td>
+                                                <td><a href="<?= base_url($jenis . '/detail/'); ?><?php echo $val[$jenis . '_id'] ?>" class="btn btn-info">Detail</a></td>
+                                            </tr>
+                                        <?php }
+                                    } else { ?>
+                                        <tr>
+                                            <td colspan="4" class="text-center"><b>Data Kosong</b></td>
+                                        </tr>
+                                    <?php } ?>
+                            </table>
+                        <?php }else{ ?>
+                            
+                        <?php } ?>
                     </div>
                 </div>
             </div>
