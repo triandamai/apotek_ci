@@ -20,6 +20,7 @@
         <li><a href="<?=base_url('pembelian'); ?>"><i class="fa fa-book"></i> <span>Pembelian</span></a></li>
         <li><a href="<?=base_url('Penjualan'); ?>"><i class="fa fa-book"></i> <span>Penjualan</span></a></li>
         <li><a href="<?=base_url('Laporan'); ?>"><i class="fa fa-book"></i> <span>Laporan</span></a></li>
+        <li><a href="<?=base_url('Pemberitahuan'); ?>"><i class="fa fa-book"></i> <span>Notifikasi</span></a></li>
         <li><a href="<?=base_url('Pengaturan'); ?>"><i class="fa fa-book"></i> <span>Pengaturan</span></a></li>
       </ul>
     </section>

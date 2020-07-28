@@ -100,8 +100,9 @@ class Pembelian extends CI_Controller {
         if($check == 0) {
         $hargaa = $this->model->getById('tb_obat', ['obat_id' => $nama_obat])->row();
        
-        $harga = $hargaa->obat_beli * $jumlah;
+        $harga = $harga_beli * $jumlah;
         $nama = $hargaa->obat_nama;
+        $total_final = $nilai=($diskon/100)*$harga;
 		$data = array(
             'temp_faktur' => $faktur,
             'temp_nama' => $nama,
@@ -113,7 +114,7 @@ class Pembelian extends CI_Controller {
             'temp_expired'=>$expired,
             'temp_tanggal_terima'=>$tanggal_masuk,
 			'temp_jumlah' => $jumlah,
-            'temp_totalharga' => $harga,
+            'temp_totalharga' => $total_final,
             );
             $this->model->save($data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);
@@ -124,8 +125,10 @@ class Pembelian extends CI_Controller {
             $jumlahh = $this->model->getSingleValue('tb_pembelian_temp', 'temp_jumlah', ['temp_obat_id' => $nama_obat]);
 
             $new = $jumlah + $jumlahh->temp_jumlah;
-        $harga = $hargaa->obat_beli * $new ;  $nama = $hargaa->obat_id;
-        $data = array(
+            $harga = $harga_beli * $new ;  
+            $nama = $hargaa->obat_id;
+            $total_final = $nilai=($diskon/100)*$harga;
+            $data = array(
             'temp_faktur' => $faktur,
             'temp_nama' => $nama,
             'temp_obat_id' => $nama_obat,
@@ -136,7 +139,7 @@ class Pembelian extends CI_Controller {
             'temp_expired'=>$expired,
             'temp_tanggal_terima'=>$tanggal_masuk,
 			'temp_jumlah' => $jumlah,
-            'temp_totalharga' => $harga,
+            'temp_totalharga' => $total_final,
             );
             $this->model->update(['temp_nama' => $nama], $data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);

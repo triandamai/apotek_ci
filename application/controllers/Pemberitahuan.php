@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pengaturan extends CI_Controller {
+class Pemberitahuan extends CI_Controller {
 
     function __construct(){
 		parent::__construct();
@@ -16,8 +16,8 @@ class Pengaturan extends CI_Controller {
 
     public function index()
     {
-        $data['content'] = 'Pengaturan';
-        $data['pagetitle'] = 'Pengaturan';
+        $data['content'] = 'Pemberitahuan';
+        $data['pagetitle'] = 'Pemberitahuan';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '0';
         //get suppliers data
