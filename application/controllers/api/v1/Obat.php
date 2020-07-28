@@ -34,7 +34,7 @@ class Obat extends REST_Controller {
             $data = $this->DataModel->getJoin('tb_pembelian as pembelian','pembelian.pembelian_id = detail.detail_id_transaksi','INNER');
             $data = $this->DataModel->getJoin('tb_supplier as suplier','suplier.supplier_id = pembelian.pembelian_id_supplier','INNER');
             $data = $this->DataModel->order_by("detail.detail_id","ASC");
-            $data = $this->DataModel->getData('tb_penjualan_detail AS detail');
+            $data = $this->DataModel->getData('tb_pembelian_detail AS detail');
             if($data && $data->num_rows() >= 1){
                 return $this->response(array(
                     "status"                => true,
@@ -59,7 +59,7 @@ class Obat extends REST_Controller {
             $data = $this->DataModel->getJoin('tb_supplier as suplier','suplier.supplier_id = pembelian.pembelian_id_supplier','INNER');
             $data = $this->db->where("detail.detail_id_transaksi ",$id);
             $data = $this->DataModel->order_by("detail.detail_id","ASC");
-            $data = $this->DataModel->getData('tb_penjualan_detail AS detail');
+            $data = $this->DataModel->getData('tb_pembelian_detail AS detail');
             if($data && $data->num_rows() >= 1){
                 return $this->response(array(
                     "status"                => true,

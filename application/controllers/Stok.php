@@ -28,10 +28,10 @@ class Stok extends CI_Controller {
         $data['obats'] = $this->DataModel->getJoin('tb_pembelian as pembelian','pembelian.pembelian_id = detail.detail_id_transaksi','INNER');
         $data['obats'] = $this->DataModel->getJoin('tb_supplier as suplier','suplier.supplier_id = pembelian.pembelian_id_supplier','INNER');
         $data['obats'] = $this->DataModel->order_by("detail.detail_id","ASC");
-        $data['obats'] = $this->DataModel->getData('tb_penjualan_detail AS detail')->result();
+        $data['obats'] = $this->DataModel->getData('tb_pembelian_detail AS detail')->result();
         
-        var_dump($data);
-        die();
+        // var_dump($data);
+        // die();
 		$this->load->view('template',$data);   
     }
 

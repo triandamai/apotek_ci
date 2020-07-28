@@ -105,6 +105,7 @@ class Pembelian extends CI_Controller {
         $harga = $harga_beli * $jumlah;
         $nama = $hargaa->obat_nama;
         $total_final = $nilai=($diskon/100)*$harga;
+        $total = $harga - $total_final;
 		$data = array(
             'temp_faktur' => $faktur,
             'temp_obat_id' => $nama_obat,
@@ -115,7 +116,7 @@ class Pembelian extends CI_Controller {
             'temp_expired'=>$expired,
             'temp_tanggal_terima'=>$tanggal_masuk,
 			'temp_jumlah' => $jumlah,
-            'temp_totalharga' => $total_final,
+            'temp_totalharga' => $total,
             );
             $this->model->save($data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);
@@ -129,6 +130,7 @@ class Pembelian extends CI_Controller {
             $harga = $harga_beli * $new ;  
             $nama = $hargaa->obat_id;
             $total_final = $nilai=($diskon/100)*$harga;
+            $total = $harga - $total;
             $data = array(
             'temp_faktur' => $faktur,
             'temp_nama' => $nama,
