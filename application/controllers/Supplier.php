@@ -14,7 +14,7 @@ class Supplier extends CI_Controller {
 
     public function index()
     {
-        $data['content'] = 'supplier';
+        $data['content'] = 'Supplier';
         $data['pagetitle'] = 'Supplier';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
@@ -25,7 +25,7 @@ class Supplier extends CI_Controller {
 
     public function tambah()
     {
-        $data['content'] = 'tambahsupplier';
+        $data['content'] = 'TambahSupplier';
         $data['pagetitle'] = 'Tambah Supplier';
 		$this->load->view('template',$data);   
     }
@@ -50,7 +50,7 @@ class Supplier extends CI_Controller {
 
     public function edit($id)
     {
-        $data['content'] = 'editsupplier';
+        $data['content'] = 'EditSupplier';
         $data['pagetitle'] = 'Edit Supplier';
         //get suppliers data based on id
         $data['supplier'] = $this->model->getById('tb_supplier', ['supplier_id' => $id])->row();

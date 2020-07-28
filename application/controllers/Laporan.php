@@ -71,7 +71,9 @@ class Laporan extends CI_Controller
         } else if ($jenis == 2) {
             $j = 'pembelian';
         } else {
+            $j = 'laba / rugi';
         }
+
         if ($type == "xlsx") {
             $styleArray = [
                 'font' => [
@@ -137,12 +139,19 @@ class Laporan extends CI_Controller
             exit;
         } else if ($type == "pdf") {
             $data['jenis'] = $j;
+            $dataPembelian = $this->model->getPembelian($input);
+            $dataOutput = array_merge($dataOutput,$dataPembelian);
             $data['dataOutput'] = $dataOutput;
             $data['bulan'] = $bulanIndo[$bulan-1];
+            // die(json_encode($data));
             $this->load->library('PdfGenerator');
             $this->pdfgenerator->setPaper('A4', 'potrait');
             $this->pdfgenerator->filename = "laporan_".$j."_bulanan.pdf";
-            $this->pdfgenerator->load_view('cetakLaporanPdf', $data);
+            if($jenis != 3){
+                $this->pdfgenerator->load_view('cetakLaporanPdf', $data);
+            }else{
+                $this->pdfgenerator->load_view('cetakLaporanLabaRugi', $data);
+            }
         }
     }
 }

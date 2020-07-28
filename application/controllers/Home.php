@@ -13,7 +13,7 @@ class Home extends CI_Controller {
 
     public function index()
     {
-        $data['content'] = 'home';
+        $data['content'] = 'Home';
         $data['pagetitle'] = 'Home';
         $bulan = date('m');
         $day = date('d');
