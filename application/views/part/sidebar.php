@@ -16,6 +16,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li><a href="<?=base_url('obat'); ?>"><i class="fa fa-book"></i> <span>Obat</span></a></li>
+        <li><a href="<?=base_url('stok'); ?>"><i class="fa fa-book"></i> <span>Stok Obat</span></a></li>
         <li><a href="<?=base_url('supplier'); ?>"><i class="fa fa-book"></i> <span>Supplier</span></a></li>
         <li><a href="<?=base_url('pembelian'); ?>"><i class="fa fa-book"></i> <span>Pembelian</span></a></li>
         <li><a href="<?=base_url('Penjualan'); ?>"><i class="fa fa-book"></i> <span>Penjualan</span></a></li>

@@ -15,6 +15,7 @@ class Penjualan extends REST_Controller {
         // Construct the parent class
         parent::__construct();
         $this->load->model('Model');
+        $this->load->model('DataModel');
        
         // $this->methods['komentar_get']['limit'] = 500; // 500 requests per hour per user/key
         // $this->methods['komentar_post']['limit'] = 100; // 100 requests per hour per user/key
@@ -116,7 +117,10 @@ class Penjualan extends REST_Controller {
         if ($id === NULL)
         {
 
-            $data = $this->model->getAll('tb_penjualan_detail');
+            $data = $this->DataModel->select('*');
+            $data = $this->DataModel->getJoin('tb_obat as o','o.obat_id = c.detail_obat_id','INNER');
+            $data = $this->DataModel->order_by("c.detail_id","ASC");
+            $data = $this->DataModel->getData('tb_penjualan_detail AS c');
             if($data && $data->num_rows() >= 1){
                 return $this->response(array(
                     "status"                => true,
@@ -135,7 +139,11 @@ class Penjualan extends REST_Controller {
     
         }else {
             
-            $data = $this->model->getById('tb_penjualan_detail',array('penjualan_id'=>$id));
+            $data = $this->DataModel->select('*');
+            $data = $this->DataModel->getJoin('obat as o','o.obat_id = c.obat_id','INNER');
+            $data = $this->db->where("c.detail_id_transaksi ",$id);
+            $data = $this->DataModel->order_by("c.detail_id","ASC");
+            $data = $this->DataModel->getData('tb_penjualan_detail AS c');
             if($data && $data->num_rows() >= 1){
                 return $this->response(array(
                     "status"                => true,

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Obat extends CI_Controller {
+class Stok extends CI_Controller {
 
     
     function __construct(){
@@ -17,12 +17,21 @@ class Obat extends CI_Controller {
 
     public function index()
     {
-        $data['content'] = 'Obat';
-        $data['pagetitle'] = 'Obat';
+        $data['content'] = 'Stok';
+        $data['pagetitle'] = 'Stok Obat';
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
         //get data obat
-        $data['obats'] = $this->model->getAll('tb_obat')->result();
+        $data['obats'] = $this->DataModel->select('*');
+    
+        $data['obats'] = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = detail.detail_obat_id','INNER');
+        $data['obats'] = $this->DataModel->getJoin('tb_pembelian as pembelian','pembelian.pembelian_id = detail.detail_id_transaksi','INNER');
+        $data['obats'] = $this->DataModel->getJoin('tb_supplier as suplier','suplier.supplier_id = pembelian.pembelian_id_supplier','INNER');
+        $data['obats'] = $this->DataModel->order_by("detail.detail_id","ASC");
+        $data['obats'] = $this->DataModel->getData('tb_penjualan_detail AS detail')->result();
+        
+        var_dump($data);
+        die();
 		$this->load->view('template',$data);   
     }
 

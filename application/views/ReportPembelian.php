@@ -48,7 +48,7 @@
   <h3 align="center">Report Pembelian</h3> 
     <h5>ID Transaksi : <?=$pembelians->pembelian_id_transaksi; ?></h5>
             <h5>Tanggal : <?=$pembelians->pembelian_tanggal; ?></h5>
-            <h5>Supplier : <?=$pembelians->pembelian_supplier; ?></h5>
+            <h5>Supplier : <?=$pembelians->supplier_nama; ?></h5>
 	  <table>
 	  	<thead>
 	  		<tr>
@@ -64,7 +64,7 @@
 	  		<?php foreach($details as $detail): ?>
 	  		  <tr>
 	  			<td><?php echo $no; ?></td>
-	  			<td><?php echo $detail->detail_obat ?></td>
+	  			<td><?php echo $detail->obat_nama ?></td>
       <td><?php echo $detail->detail_jumlah ?></td>
       <td><?php echo $detail->detail_harga ?></td>
 	  		  </tr>

@@ -37,7 +37,7 @@
                   <select class="form-control" name="nama_supplier" <?php
     if ($asd != null || $this->session->flashdata('id_supplier') != "") { echo "disabled";}?>>
                   <?php foreach($suppliers as $supplier){ ?>
-                    <option value="<?= $supplier->supplier_nama; ?>"><?php if ($asd != null ) { echo  $asd;} elseif($this->session->flashdata('id_supplier') != ""){echo $this->session->flashdata('id_supplier');}else{echo $supplier->supplier_nama; } ?></option>
+                    <option value="<?= $supplier->supplier_id; ?>"><?php if ($asd != null ) { echo  $asd;} elseif($this->session->flashdata('id_supplier') != ""){echo $this->session->flashdata('id_supplier');}else{echo $supplier->supplier_nama; } ?></option>
                   <?php } ?>
                   </select>
                   </div>
@@ -224,7 +224,7 @@
 		foreach($temp as $tmp){ 
 		?>
 		<tr>
-			<td><?php echo $tmp->temp_nama ?></td>
+			<td><?php echo $tmp->obat_nama ?></td>
       <td><?php echo $tmp->temp_faktur ?></td>
             <td><?php echo $tmp->temp_jumlah ?></td>
             <td><?php echo $tmp->temp_totalharga ?></td>

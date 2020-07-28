@@ -35,7 +35,7 @@
 		<tr>
 			<td><?php echo $pembelian->pembelian_id_transaksi ?></td>
             <td><?php echo $pembelian->pembelian_tanggal ?></<td>
-            <td><?php echo $pembelian->supplier_nama ?></td>
+            <td><?php echo $pembelian->pembelian_supplier ?></td>
             <td><?php echo $pembelian->pembelian_faktur ?></td>
             <td><?php echo $pembelian->pembelian_subtotal ?></td>
             <td><a href="<?= base_url('pembelian/detail/'); ?><?php echo $pembelian->pembelian_id ?>" class="btn btn-info">Detail</a></td>
