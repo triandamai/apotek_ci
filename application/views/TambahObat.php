@@ -33,7 +33,7 @@
                     <input type="number" class="form-control" placeholder="Stok" name="stokobat" required>
                   </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label class="col-sm-2 control-label">Harga Beli (Rp) </label>
 
                   <div class="col-sm-8">
@@ -46,7 +46,7 @@
                   <div class="col-sm-8">
                     <input type="number" class="form-control" placeholder="harga jual" name="hargajual" required>
                   </div>
-                </div>
+                </div> -->
               </div>
               <!-- /.box-body -->
               <div class="box-footer">

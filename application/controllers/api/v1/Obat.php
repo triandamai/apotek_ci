@@ -15,6 +15,7 @@ class Obat extends REST_Controller {
         // Construct the parent class
         parent::__construct();
         $this->load->model('Model');
+        $this->load->model('DataModel');
        
         // $this->methods['komentar_get']['limit'] = 500; // 500 requests per hour per user/key
         // $this->methods['komentar_post']['limit'] = 100; // 100 requests per hour per user/key
@@ -27,7 +28,13 @@ class Obat extends REST_Controller {
         if ($id === NULL)
         {
 
-            $data = $this->model->getAll('tb_obat');
+            $data = $this->DataModel->select('*');
+    
+            $data = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = detail.detail_obat_id','INNER');
+            $data = $this->DataModel->getJoin('tb_pembelian as pembelian','pembelian.pembelian_id = detail.detail_id_transaksi','INNER');
+            $data = $this->DataModel->getJoin('tb_supplier as suplier','suplier.supplier_id = pembelian.pembelian_id_supplier','INNER');
+            $data = $this->DataModel->order_by("detail.detail_id","ASC");
+            $data = $this->DataModel->getData('tb_pembelian_detail AS detail');
             if($data && $data->num_rows() >= 1){
                 return $this->response(array(
                     "status"                => true,
@@ -46,7 +53,13 @@ class Obat extends REST_Controller {
     
         }else {
             
-            $data = $this->model->getById('tb_obat',array('obat_id'=>$id));
+            $data = $this->DataModel->select('*');
+            $data = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = detail.detail_obat_id','INNER');
+            $data = $this->DataModel->getJoin('tb_pembelian as pembelian','pembelian.pembelian_id = detail.detail_id_transaksi','INNER');
+            $data = $this->DataModel->getJoin('tb_supplier as suplier','suplier.supplier_id = pembelian.pembelian_id_supplier','INNER');
+            $data = $this->db->where("detail.detail_id_transaksi ",$id);
+            $data = $this->DataModel->order_by("detail.detail_id","ASC");
+            $data = $this->DataModel->getData('tb_pembelian_detail AS detail');
             if($data && $data->num_rows() >= 1){
                 return $this->response(array(
                     "status"                => true,

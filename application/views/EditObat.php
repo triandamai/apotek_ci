@@ -23,6 +23,7 @@
                   <label class="col-sm-2 control-label">Nama Obat</label>
 
                   <div class="col-sm-8">
+                  <input type="hidden"name="id" value="<?=$obats->obat_id; ?>">
                     <input type="text" class="form-control" placeholder="Nama Obat" name="namaobat" value="<?=$obats->obat_nama; ?>" required>
                   </div>
                 </div>
@@ -33,7 +34,7 @@
                     <input type="number" class="form-control" placeholder="Stok" name="stokobat" value="<?=$obats->obat_stok; ?>" required>
                   </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label class="col-sm-2 control-label">Harga Beli (Rp) </label>
 
                   <div class="col-sm-8">
@@ -46,8 +47,8 @@
                   <div class="col-sm-8">
                     <input type="number" class="form-control" placeholder="harga jual" name="hargajual" value="<?=$obats->obat_jual; ?>"required>
                   </div>
-                </div>
-                <input type="hidden"name="id" value="<?=$obats->obat_id; ?>">
+                </div> -->
+               
               </div>
               <!-- /.box-body -->
               <div class="box-footer">

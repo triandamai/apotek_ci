@@ -20,25 +20,25 @@
         <table id="table" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>ID Transaksi</th>
-                  <th>Tanggal</th>
+                  <th>Obat</th>
+                  <th>Tanggal Expired</th>
                   <th>Supplier</th>
                   <th>Faktur</th>
-                  <th>Subtotal</th>
-                  <th>Action</th>
+                  <th>Stok</th>
+                  
                 </tr>
                 </thead>
                 <tbody>
                 <?php 
-		foreach($pembelians as $pembelian){ 
+		foreach($obats as $obat){ 
 		?>
 		<tr>
-			<td><?php echo $pembelian->pembelian_id_transaksi ?></td>
-            <td><?php echo $pembelian->pembelian_tanggal ?></<td>
-            <td><?php echo $pembelian->supplier_nama ?></td>
-            <td><?php echo $pembelian->pembelian_faktur ?></td>
-            <td><?php echo $pembelian->pembelian_subtotal ?></td>
-            <td><a href="<?= base_url('pembelian/detail/'); ?><?php echo $pembelian->pembelian_id ?>" class="btn btn-info">Detail</a></td>
+			<td><?php echo $obat->obat_nama ?></td>
+            <td><?php echo $obat->detail_expired ?></<td>
+            <td><?php echo $obat->supplier_nama?></td>
+            <td><?php echo $obat->pembelian_faktur ?></td>
+            <td><?php echo $obat->detail_jumlah ?></td>
+            
 		</tr>
         <?php } ?>
         </table>

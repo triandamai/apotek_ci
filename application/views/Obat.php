@@ -33,8 +33,6 @@
                 <tr>
                   <th>Nama Obat</th>
                   <th>Stok</th>
-                  <th>Harga Beli</th>
-                  <th>Harga Jual</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -45,8 +43,6 @@
 		<tr>
 			<td><?php echo $obat->obat_nama ?></td>
             <td><?php echo $obat->obat_stok ?></td>
-            <td><?php echo $obat->obat_beli ?></td>
-            <td><?php echo $obat->obat_jual ?></td>
             <td><a href="<?= base_url('obat/edit/'); ?><?php echo $obat->obat_id ?>" class="btn btn-warning">Edit</a> | <a href="<?= base_url('obat/delete/'); ?><?php echo $obat->obat_id ?>" class="btn btn-danger">Delete</a></td>
 		</tr>
         <?php } ?>

@@ -32,13 +32,13 @@ class Model extends CI_Model
 
   public function save($data, $table)
   {
-    $this->db->insert($table, $data);
+    return $this->db->insert($table, $data);
   }
 
   public function update($where, $data, $table)
   {
     $this->db->where($where);
-    $this->db->update($table, $data);
+    return $this->db->update($table, $data);
   }
 
   public function delete($where, $table)

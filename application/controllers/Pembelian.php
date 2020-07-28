@@ -11,6 +11,7 @@ class Pembelian extends CI_Controller {
         $this->model->auth();
         //set default timezone
         date_default_timezone_set("Asia/Jakarta");
+        $this->load->model('DataModel');
 	}
     
 
@@ -27,7 +28,9 @@ class Pembelian extends CI_Controller {
         //get data obat
         $data['obats'] = $this->model->getAll('tb_obat')->result();
         //get data temporary pembelian
-        $data['temp'] = $this->model->getAll('tb_pembelian_temp')->result();
+        $data['temp'] = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = temp.temp_obat_id','INNER');
+        $data['temp'] = $this->DataModel->getData('tb_pembelian_temp AS temp')->result();
+       
 		$this->load->view('template',$data);   
     }
 
@@ -44,7 +47,7 @@ class Pembelian extends CI_Controller {
             'pembelian_faktur' => $faktur,
 			'pembelian_id_transaksi' => $idtransaksi,
             'pembelian_tanggal' => $tanggal,
-            'pembelian_supplier' => $supplier,
+            'pembelian_id_supplier' => $supplier,
             'pembelian_subtotal' => $subtotal,
             );
             //save the data
@@ -58,7 +61,6 @@ class Pembelian extends CI_Controller {
     foreach ($query->result() as $row) {
         $data1 = array(
             'detail_id_transaksi' => $insertid,
-            'detail_nama' => $row->temp_nama,
             'detail_obat_id' => $row->temp_obat_id,
             'detail_harga_beli'=> $row->temp_harga_beli,
             'detail_harga_jual'=>$row->temp_harga_jual,
@@ -100,11 +102,12 @@ class Pembelian extends CI_Controller {
         if($check == 0) {
         $hargaa = $this->model->getById('tb_obat', ['obat_id' => $nama_obat])->row();
        
-        $harga = $hargaa->obat_beli * $jumlah;
+        $harga = $harga_beli * $jumlah;
         $nama = $hargaa->obat_nama;
+        $total_final = $nilai=($diskon/100)*$harga;
+        $total = $harga - $total_final;
 		$data = array(
             'temp_faktur' => $faktur,
-            'temp_nama' => $nama,
             'temp_obat_id' => $nama_obat,
             'temp_satuan_beli' =>$satuan_beli,
             'temp_harga_beli'=>$harga_beli,
@@ -113,7 +116,7 @@ class Pembelian extends CI_Controller {
             'temp_expired'=>$expired,
             'temp_tanggal_terima'=>$tanggal_masuk,
 			'temp_jumlah' => $jumlah,
-            'temp_totalharga' => $harga,
+            'temp_totalharga' => $total,
             );
             $this->model->save($data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);
@@ -124,8 +127,11 @@ class Pembelian extends CI_Controller {
             $jumlahh = $this->model->getSingleValue('tb_pembelian_temp', 'temp_jumlah', ['temp_obat_id' => $nama_obat]);
 
             $new = $jumlah + $jumlahh->temp_jumlah;
-        $harga = $hargaa->obat_beli * $new ;  $nama = $hargaa->obat_id;
-        $data = array(
+            $harga = $harga_beli * $new ;  
+            $nama = $hargaa->obat_id;
+            $total_final = $nilai=($diskon/100)*$harga;
+            $total = $harga - $total;
+            $data = array(
             'temp_faktur' => $faktur,
             'temp_nama' => $nama,
             'temp_obat_id' => $nama_obat,
@@ -136,7 +142,7 @@ class Pembelian extends CI_Controller {
             'temp_expired'=>$expired,
             'temp_tanggal_terima'=>$tanggal_masuk,
 			'temp_jumlah' => $jumlah,
-            'temp_totalharga' => $harga,
+            'temp_totalharga' => $total_final,
             );
             $this->model->update(['temp_nama' => $nama], $data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);
@@ -160,7 +166,9 @@ class Pembelian extends CI_Controller {
         //if datatatables = 1 apply the javascript for datatable
         $data['datatables'] = '1';
         //get data pembelian
-        $data['pembelians'] = $this->model->getAll('tb_pembelian')->result();
+        $data['pembelians'] = $this->DataModel->getJoin('tb_supplier as s','s.supplier_id = p.pembelian_id_supplier','INNER');
+        $data['pembelians'] = $this->DataModel->getData('tb_pembelian AS p')->result();
+       
 		$this->load->view('template',$data);   
     }
 
@@ -172,16 +180,30 @@ class Pembelian extends CI_Controller {
         $data['datatables'] = '1';
         $data['id'] = $id;
         //get the detail pembelian based on id
-        $data['pembelians'] = $this->model->getById('tb_pembelian', ['pembelian_id' => $id])->row();
-        $data['details'] = $this->model->getById('tb_pembelian_detail', ['detail_id_transaksi' => $id])->result();
+        // $data['pembelians'] = $this->model->getById('tb_pembelian', ['pembelian_id' => $id])->row();
+
+      //  $data['details'] = $this->model->getById('tb_pembelian_detail', ['detail_id_transaksi' => $id])->result();
+        $data['details'] = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = p.detail_obat_id','INNER');
+        $data['details'] = $this->db->where("p.detail_id_transaksi ",$id);
+        $data['details'] = $this->DataModel->getData('tb_pembelian_detail AS p')->result();
+
+        $data['pembelians'] = $this->DataModel->getJoin('tb_supplier as s','s.supplier_id = p.pembelian_id_supplier','INNER');
+        $data['pembelians'] = $this->db->where("p.pembelian_id ",$id);
+        $data['pembelians'] = $this->DataModel->getData('tb_pembelian AS p')->row();
+        
 		$this->load->view('template',$data);   
     }
 
     public function print($id,$id2) 
     {
  
-		$data['pembelians'] = $this->model->getById('tb_pembelian', ['pembelian_id' => $id])->row();
-        $data['details'] = $this->model->getById('tb_pembelian_detail', ['detail_id_transaksi' => $id])->result();
+        $data['details'] = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = p.detail_obat_id','INNER');
+        $data['details'] = $this->db->where("p.detail_id_transaksi ",$id);
+        $data['details'] = $this->DataModel->getData('tb_pembelian_detail AS p')->result();
+
+        $data['pembelians'] = $this->DataModel->getJoin('tb_supplier as s','s.supplier_id = p.pembelian_id_supplier','INNER');
+        $data['pembelians'] = $this->db->where("p.pembelian_id ",$id);
+        $data['pembelians'] = $this->DataModel->getData('tb_pembelian AS p')->row();
         //load the dompdf library
         $this->load->library('pdfgenerator');
         //set the configuration

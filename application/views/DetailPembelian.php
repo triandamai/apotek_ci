@@ -20,7 +20,7 @@
         <div class="box-body">
             <h3>ID Transaksi : <?=$pembelians->pembelian_id_transaksi; ?></h3>
             <h3>Tanggal : <?=$pembelians->pembelian_tanggal; ?></h3>
-            <h3>Supplier : <?=$pembelians->pembelian_supplier; ?></h3>
+            <h3>Supplier : <?=$pembelians->supplier_nama; ?></h3>
             <h3>Faktur : <?=$pembelians->pembelian_faktur; ?></h3>
         <table id="table" class="table table-bordered table-hover">
                 <thead>
@@ -35,7 +35,7 @@
 		foreach($details as $detail){ 
 		?>
 		<tr>
-			<td><?php echo $detail->detail_obat ?></td>
+			<td><?php echo $detail->obat_nama ?></td>
       <td><?php echo $detail->detail_jumlah ?></td>
       <td><?php echo $detail->detail_harga ?></td>
 		</tr>
