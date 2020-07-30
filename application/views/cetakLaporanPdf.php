@@ -14,8 +14,8 @@
     <table border="0.5" width="100%" style="text-align:center;">
         <tr>
             <th>No</th>
-            <th>Tanggal</th>
-            <th>ID Transaksi</th>
+            <!-- <th>Tanggal</th>
+            <th>ID Transaksi</th> -->
             <th>Nama Obat</th>
             <th>Jumlah</th>
             <th>Harga</th>
@@ -29,9 +29,9 @@
         ?>
             <tr>
                 <td><?php echo $no++; ?></td>
-                <td><?= date_format(date_create($val[$jenis . '_tanggal']), 'd/m/Y') ?></td>
-                <td><?= $val[$jenis . "_id_transaksi"] ?></td>
-                <td><?= $val["detail_obat"] ?></td>
+               
+              
+                <td><?= $val["detail_obat_id"] ?></td>
                 <td><?= $val["detail_jumlah"] ?></td>
                 <td><?= $val["detail_harga"] ?></td>
                 <td><?= $val[$jenis . "_subtotal"] ?></td>

@@ -104,6 +104,9 @@ class Model extends CI_Model
     $this->db->where("MONTH(pembelian_tanggal)", $data['bulan']);
     $this->db->from("tb_pembelian");
     $this->db->join("tb_pembelian_detail", "tb_pembelian_detail.detail_id_transaksi = pembelian_id", "left");
+    $this->db->join("tb_obat", "tb_obat.obat_id = tb_pembelian_detail.detail_obat_id", "left");
+    
+    
     return $this->db->get()->row_array();
   }
 }

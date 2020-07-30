@@ -35,9 +35,20 @@
 
                   <div class="col-sm-8">
                   <select class="form-control" name="nama_supplier" <?php
-    if ($asd != null || $this->session->flashdata('id_supplier') != "") { echo "disabled";}?>>
+                  if ($asd != null || $this->session->flashdata('id_supplier') != "") { 
+                      echo "disabled";
+                    }?>>
                   <?php foreach($suppliers as $supplier){ ?>
-                    <option value="<?= $supplier->supplier_id; ?>"><?php if ($asd != null ) { echo  $asd;} elseif($this->session->flashdata('id_supplier') != ""){echo $this->session->flashdata('id_supplier');}else{echo $supplier->supplier_nama; } ?></option>
+                    <option value="<?= $supplier->supplier_id; ?>">
+                    <?php 
+                    if ($asd != null ) { 
+                      echo  $asd;
+                    }elseif($this->session->flashdata('id_supplier') != ""){
+                      echo $this->session->flashdata('id_supplier');
+                    }else{
+                      echo $supplier->supplier_nama; 
+                      } ?>
+                      </option>
                   <?php } ?>
                   </select>
                   </div>
@@ -243,8 +254,8 @@
         <?php if($temp != null ) { ?>
           <h4 class="pull-right">Total : <?= "Rp " . number_format($totalharga,2,',','.'); ?></h4>
         <form action="<?= base_url('pembelian/save'); ?>" method="post">
-      <input type="hidden" name="supplier" value= "<?php if($asd != null) {
-                echo $asd;
+      <input type="hidden" name="supplier" value= "<?php if($id != null) {
+                echo $id;
             }else{
             echo $this->session->flashdata('id_supplier'); 
             }
