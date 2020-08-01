@@ -33,7 +33,7 @@
 		foreach($details as $detail){ 
 		?>
 		<tr>
-			<td><?php echo $detail->detail_obat ?></td>
+			<td><?php echo $detail->obat_nama ?></td>
       <td><?php echo $detail->detail_jumlah ?></td>
       <td><?php echo $detail->detail_harga ?></td>
 		</tr>

@@ -51,6 +51,7 @@ class Pembelian extends CI_Controller {
         //get user input
         $faktur = $this->input->post('faktur');
         $tanggal_faktur = $this->input->post('tanggal_faktur');
+        $tanggal_masuk = $this->input->post('tanggal_masuk');
         $supplier = $this->input->post('supplier');
         $subtotal = $this->input->post('subtotal');
         //generate id transaksi
@@ -59,7 +60,9 @@ class Pembelian extends CI_Controller {
         //insert data in array
 		$data = array(
             'pembelian_faktur' => $faktur,
-			'pembelian_id_transaksi' => $idtransaksi,
+            'pembelian_id_transaksi' => $idtransaksi,
+            'pembelian_tanggal_faktur'=> date('Y-m-d'),
+            'pembelian_tanggal_masuk'=> date('Y-m-d'),
             'pembelian_tanggal' => $tanggal,
             'pembelian_id_supplier' => $supplier,
             'pembelian_subtotal' => $subtotal,
@@ -115,6 +118,8 @@ class Pembelian extends CI_Controller {
         $check = $this->model->getById('tb_pembelian_temp', ['temp_obat_id' => $nama_obat])->num_rows();
         //if data not exist, insert new data
     
+        $_SESSION['tggl_masuk'] = $tanggal_masuk;
+        $_SESSION['tggl_faktur'] = $tanggal_faktur;
         if($check == 0) {
         $hargaa = $this->model->getById('tb_obat', ['obat_id' => $nama_obat])->row();
        
@@ -137,6 +142,7 @@ class Pembelian extends CI_Controller {
             );
             $this->model->save($data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);
+       
             redirect('pembelian/index');
             //if data exist, update the data
         }elseif($check > 0) {
@@ -147,11 +153,10 @@ class Pembelian extends CI_Controller {
             $harga = $harga_beli * $new ;  
             $nama = $hargaa->obat_id;
             $total_final = $nilai=($diskon/100)*$harga;
-            $total = $harga - $total;
+            $total = $harga - $total_final;
             $data = array(
             'temp_faktur' => $faktur,
             'temp_tanggal_faktur'=> $tanggal_faktur,
-            'temp_nama' => $nama,
             'temp_obat_id' => $nama_obat,
             'temp_satuan_beli' =>$satuan_beli,
             'temp_harga_beli'=>$harga_beli,
@@ -162,9 +167,10 @@ class Pembelian extends CI_Controller {
 			'temp_jumlah' => $jumlah,
             'temp_totalharga' => $total_final,
             );
-            $this->model->update(['temp_nama' => $nama], $data,'tb_pembelian_temp');
+            $this->model->update(['temp_obat_id' => $nama_obat], $data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);
-            redirect('pembelian/index');
+     
+            redirect('pembelian/index',$update);
         } 
     }
 
@@ -208,7 +214,7 @@ class Pembelian extends CI_Controller {
         $data['pembelians'] = $this->DataModel->getJoin('tb_supplier as s','s.supplier_id = p.pembelian_id_supplier','INNER');
         $data['pembelians'] = $this->db->where("p.pembelian_id ",$id);
         $data['pembelians'] = $this->DataModel->getData('tb_pembelian AS p')->row();
-        
+      
 		$this->load->view('template',$data);   
     }
 

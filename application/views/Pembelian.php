@@ -114,6 +114,7 @@
                     <input type="date" class="form-control" placeholder="Jumlah Beli" name="tanggal_masuk" required>
                   </div>
                 </div>
+                <!--  -->
                 <!-- Box, ampul, fles, vial, pcs, tab, btl, ktk -->
               <div class="form-group">
                   <label class="col-sm-2 control-label">Satuan Beli</label>
@@ -262,6 +263,15 @@
             ?>">
         <input type="hidden" name="subtotal" value= "<?= $totalharga; ?>">
         <input type="hidden" name="faktur" value= "<?=  $tmp->temp_faktur; ?>">
+
+            <?php 
+            if(isset($_SESSION['tgglmasuk'])){?>
+              <input type="hidden" name="tanggal_faktur" value= "<?=  $_SESSION['tgglfaktur'];?>">
+              <input type="hidden" name="tanggal_masuk" value= "<?=  $_SESSION['tgglmasuk']; ?>">
+              <?php
+          }
+            ?>
+        
         <div class="col-sm-10">
                     <input type="submit" class="btn btn-info pull-left" name="submit"/>
         </div>
