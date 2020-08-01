@@ -81,8 +81,8 @@ CREATE TABLE `tb_pembelian_detail` (
   `detail_harga_jual` double NOT NULL DEFAULT 0,
   `detail_harga_beli` double DEFAULT 0,
   `detail_diskon` int(11) NOT NULL DEFAULT 0,
-  `detail_expired` date NOT NULL DEFAULT current_timestamp(),
-  `detail_tanggal_terima` date NOT NULL DEFAULT current_timestamp(),
+  `detail_expired` datetime NOT NULL DEFAULT current_timestamp(),
+  `detail_tanggal_terima` datetime NOT NULL DEFAULT current_timestamp(),
   `detail_jumlah` int(11) NOT NULL,
   `detail_harga` int(11) NOT NULL,
   `jml_update` int(36) NOT NULL DEFAULT 0
@@ -118,8 +118,8 @@ CREATE TABLE `tb_pembelian_temp` (
   `temp_harga_beli` double NOT NULL,
   `temp_harga_jual` double NOT NULL DEFAULT 0,
   `temp_diskon` int(11) NOT NULL DEFAULT 0,
-  `temp_expired` date NOT NULL DEFAULT current_timestamp(),
-  `temp_tanggal_terima` date NOT NULL DEFAULT current_timestamp(),
+  `temp_expired` datetime NOT NULL DEFAULT current_timestamp(),
+  `temp_tanggal_terima` datetime NOT NULL DEFAULT current_timestamp(),
   `temp_jumlah` int(11) NOT NULL,
   `temp_totalharga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

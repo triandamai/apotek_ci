@@ -23,7 +23,7 @@
                 Jumlah Item Dibeli
             </td>
             <td width="25%">
-                : <?= $dataOutput['item_pembelian'] ?> pcs
+                : <?= ($dataOutput['item_pembelian'] > 0) ? $dataOutput['item_pembelian'] : "0"; ?> pcs
             </td>
         </tr>
 
@@ -47,7 +47,7 @@
                 Jumlah Item Terjual
             </td>
             <td width="25%">
-                : <?= $dataOutput['item_penjualan'] ?> pcs
+                : <?= ($dataOutput['item_penjualan'] > 0) ? $dataOutput['item_penjualan'] : "0"; ?> pcs
             </td>
         </tr>
 
