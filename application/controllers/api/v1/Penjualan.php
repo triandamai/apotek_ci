@@ -299,7 +299,7 @@ class Penjualan extends REST_Controller {
                         'detail_id_transaksi' => $insertid,
                         'detail_id_stok' => $row->temp_id_stok,
                         'detail_jumlah' => $row->temp_jumlah,
-                        'detail_harga' => $row->temp_totalharga
+                        'detail_harga' => $subtotal
                     );
                     array_push($data_insert,$dataloop);
               
@@ -332,6 +332,51 @@ class Penjualan extends REST_Controller {
             }
                 //get the last insert id
    }
+   public function penjualan_temp_hapus_post(){
+
+    $jsonArray = json_decode(file_get_contents('php://input'),true);
+    $data = $this->model->delete(array("temp_id"=>$jsonArray['id']),'tb_penjualan_temp');
+ 
+   if($data){
+       return $this->response(array(
+           "status"                => true,
+           "response_code"         => REST_Controller::HTTP_OK,
+           "response_message"      => "Berhasil",
+           "data"                  => null,
+       ), REST_Controller::HTTP_OK);
+   }else{
+       return $this->response(array(
+           "status"                => false,
+           "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+           "response_message"      => "Gagal Mendapatkan Data",
+           "data"                  => null,
+       ), REST_Controller::HTTP_OK);
+   }
+
+}
+public function penjualan_temp_ubah_post(){
+
+    $jsonArray = json_decode(file_get_contents('php://input'),true);
+    $post = array('temp_jumlah'=>$jsonArray['temp_jumlah'],"temp_totalharga" => $jsonArray['temp_total']);
+    $data = $this->model->update(array("temp_id"=>$jsonArray['id']),$post,'tb_penjualan_temp');
+ 
+   if($data){
+       return $this->response(array(
+           "status"                => true,
+           "response_code"         => REST_Controller::HTTP_OK,
+           "response_message"      => "Berhasil",
+           "data"                  => null,
+       ), REST_Controller::HTTP_OK);
+   }else{
+       return $this->response(array(
+           "status"                => false,
+           "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+           "response_message"      => "Gagal Mendapatkan Data",
+           "data"                  => null,
+       ), REST_Controller::HTTP_OK);
+   }
+
+}
    public function obat_delete(){
 
     $jsonArray = json_decode(file_get_contents('php://input'),true);

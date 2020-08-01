@@ -155,10 +155,12 @@ class Laporan extends CI_Controller
             }
             $data['dataOutput'] = $dataOutput;
             $data['bulan'] = $bulanIndo[$bulan-1];
-            // die(json_encode($data));
+            //die(json_encode($data));
             $this->load->library('PdfGenerator');
             $this->pdfgenerator->setPaper('A4', 'potrait');
             $this->pdfgenerator->filename = "laporan_".$j."_bulanan.pdf";
+           // <td><?= date_format(date_create($val[$jenis . '_tanggal']), 'd/m/Y') //></td>
+        //    <td><?= $val[$jenis . "_id_transaksi"]></td>
             if($jenis != 3){
                 $this->pdfgenerator->load_view('cetakLaporanPdf', $data);
             }else{

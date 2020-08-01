@@ -24,7 +24,20 @@ class Pembelian extends CI_Controller {
         //get suppliers data
         $data['suppliers'] = $this->model->getAll('tb_supplier')->result();
         //get user input, later this become flashdata 
-        $data['asd'] = $this->input->post('nama_supplier');
+        $id =$this->input->post('nama_supplier');
+        if($id != null){
+            $hasil = $this->model->getById('tb_supplier',array('supplier_id'=>$id))->row();
+        // var_dump($hasil->supplier_nama);
+        // die();
+            $data['asd'] = $hasil->supplier_nama;
+            $data['id'] = $hasil->supplier_id;
+        }else{
+            $data['asd'] = "";
+            $data['id'] = "";
+        }
+        
+       
+     
         //get data obat
         $data['obats'] = $this->model->getAll('tb_obat')->result();
         //get data temporary pembelian
@@ -37,6 +50,7 @@ class Pembelian extends CI_Controller {
     public function save() {
         //get user input
         $faktur = $this->input->post('faktur');
+        $tanggal_faktur = $this->input->post('tanggal_faktur');
         $supplier = $this->input->post('supplier');
         $subtotal = $this->input->post('subtotal');
         //generate id transaksi
@@ -61,6 +75,7 @@ class Pembelian extends CI_Controller {
     foreach ($query->result() as $row) {
         $data1 = array(
             'detail_id_transaksi' => $insertid,
+            'detail_tanggal_faktur' => $row->temp_tanggal_faktur,
             'detail_obat_id' => $row->temp_obat_id,
             'detail_harga_beli'=> $row->temp_harga_beli,
             'detail_harga_jual'=>$row->temp_harga_jual,
@@ -86,7 +101,8 @@ class Pembelian extends CI_Controller {
         $nama_obat = $this->input->post('nama_obat');
         $faktur = $this->input->post('no_faktur');
      
-        $tanggal_masuk = $this->input->post('tanggal_faktur');
+        $tanggal_masuk = $this->input->post('tanggal_masuk');
+        $tanggal_faktur = $this->input->post('tanggal_faktur');
         $satuan_beli = $this->input->post('satuan_beli');
         $harga_beli = $this->input->post('harga_beli');
         $harga_jual = $this->input->post('harga_jual');
@@ -108,6 +124,7 @@ class Pembelian extends CI_Controller {
         $total = $harga - $total_final;
 		$data = array(
             'temp_faktur' => $faktur,
+            'temp_tanggal_faktur'=> $tanggal_faktur,
             'temp_obat_id' => $nama_obat,
             'temp_satuan_beli' =>$satuan_beli,
             'temp_harga_beli'=>$harga_beli,
@@ -133,6 +150,7 @@ class Pembelian extends CI_Controller {
             $total = $harga - $total;
             $data = array(
             'temp_faktur' => $faktur,
+            'temp_tanggal_faktur'=> $tanggal_faktur,
             'temp_nama' => $nama,
             'temp_obat_id' => $nama_obat,
             'temp_satuan_beli' =>$satuan_beli,
