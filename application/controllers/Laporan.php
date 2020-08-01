@@ -149,8 +149,10 @@ class Laporan extends CI_Controller
             exit;
         } else if ($type == "pdf") {
             $data['jenis'] = $j;
-            $dataPembelian = $this->model->getPembelian($input);
-            $dataOutput = array_merge($dataOutput,$dataPembelian);
+            if($jenis == 3){
+                $dataPembelian = $this->model->getPembelian($input);
+                $dataOutput = array_merge($dataOutput,$dataPembelian);
+            }
             $data['dataOutput'] = $dataOutput;
             $data['bulan'] = $bulanIndo[$bulan-1];
             // die(json_encode($data));
