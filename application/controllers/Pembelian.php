@@ -112,7 +112,7 @@ class Pembelian extends CI_Controller {
        
         $expired = $this->input->post('expired');
         $diskon = $this->input->post('diskon');
-        $id_supplier = $this->input->post('ids');
+        $id_supplier = $this->input->post('id');
         $jumlah = $this->input->post('jumlah');
         //check if temporary data exist with the same nama obat
         $check = $this->model->getById('tb_pembelian_temp', ['temp_obat_id' => $nama_obat])->num_rows();
@@ -170,7 +170,7 @@ class Pembelian extends CI_Controller {
             $this->model->update(['temp_obat_id' => $nama_obat], $data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);
      
-            redirect('pembelian/index',$update);
+            redirect('pembelian/index');
         } 
     }
 

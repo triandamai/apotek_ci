@@ -47,7 +47,7 @@ class Penjualan extends REST_Controller {
                     "status"                => true,
                     "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
                     "response_message"      => "Gagal Mendapatkan Data",
-                    "data"                  => null,
+                    "data"                  => array(),
                 ), REST_Controller::HTTP_OK);
             }
     
@@ -273,7 +273,7 @@ class Penjualan extends REST_Controller {
     }
     public function penjualan_post(){
 
-        $jsonArray = json_decode(file_get_contents('php://input'),true);
+            $jsonArray = json_decode(file_get_contents('php://input'),true);
        
 
     
@@ -326,7 +326,7 @@ class Penjualan extends REST_Controller {
                 return $this->response(array(
                     "status"                => false,
                     "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
-                    "response_message"      => "Gagal Mendapatkan Data",
+                    "response_message"      => "Gagal Simpan",
                     "data"                  => null,
                 ), REST_Controller::HTTP_OK);
             }
