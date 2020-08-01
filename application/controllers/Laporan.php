@@ -121,7 +121,7 @@ class Laporan extends CI_Controller
                     $sheet->setCellValue('A' . $i, $no);
                     $sheet->setCellValue('B' . $i, date_format(date_create($val[$j . '_tanggal']), 'd/m/Y'));
                     $sheet->setCellValue('C' . $i, $val[$j . "_id_transaksi"]);
-                    $sheet->setCellValue('D' . $i, $val["detail_obat"]);
+                    $sheet->setCellValue('D' . $i, $val["obat_nama"]);
                     $sheet->setCellValue('E' . $i, $val["detail_jumlah"]);
                     $sheet->setCellValue('F' . $i, $val["detail_harga"]);
                     $sheet->setCellValue('G' . $i, $val[$j . "_subtotal"]);
@@ -149,8 +149,10 @@ class Laporan extends CI_Controller
             exit;
         } else if ($type == "pdf") {
             $data['jenis'] = $j;
-            $dataPembelian = $this->model->getPembelian($input);
-            $dataOutput = array_merge($dataOutput,$dataPembelian);
+            if($jenis == 3){
+                $dataPembelian = $this->model->getPembelian($input);
+                $dataOutput = array_merge($dataOutput,$dataPembelian);
+            }
             $data['dataOutput'] = $dataOutput;
             $data['bulan'] = $bulanIndo[$bulan-1];
             //die(json_encode($data));

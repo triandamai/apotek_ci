@@ -88,6 +88,11 @@ class Model extends CI_Model
       $this->db->where("MONTH(" . substr($table, 3) . "_tanggal)", $data['bulan']);
       $this->db->from($table);
       $this->db->join($table . "_detail", $table . "_detail.detail_id_transaksi = " . substr($table, 3) . "_id", "left");
+      if($data['jenis'] == 1){
+        $this->db->join("tb_obat","tb_obat.obat_id = ".$table."_detail.detail_id_stok","left");
+      }else{
+        $this->db->join("tb_obat","tb_obat.obat_id = ".$table."_detail.detail_obat_id","left");
+      }
       return $this->db->get()->result_array();
     } else {
       $this->db->select('SUM(detail_jumlah) as item_penjualan,SUM(penjualan_subtotal) as total_penjualan');

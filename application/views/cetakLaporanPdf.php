@@ -31,10 +31,10 @@
                 <td><?php echo $no++; ?></td>
                
               
-                <td><?= $val["detail_obat_id"] ?></td>
+                <td><?= $val["obat_nama"] ?></td>
                 <td><?= $val["detail_jumlah"] ?></td>
-                <td><?= $val["detail_harga"] ?></td>
-                <td><?= $val[$jenis . "_subtotal"] ?></td>
+                <td>Rp.<?= number_format($val["detail_harga"],0,',','.') ?></td>
+                <td>Rp.<?= number_format($val[$jenis . "_subtotal"],0,',','.') ?></td>
             </tr>
         <?php
             $totObat += $val['detail_jumlah'];
