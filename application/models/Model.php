@@ -44,7 +44,7 @@ class Model extends CI_Model
   public function delete($where, $table)
   {
     $this->db->where($where);
-    $this->db->delete($table);
+    return $this->db->delete($table);
   }
   public function getSingleValue($table, $column, $where)
   {
@@ -87,13 +87,24 @@ class Model extends CI_Model
       $this->db->select('*');
       $this->db->where("MONTH(" . substr($table, 3) . "_tanggal)", $data['bulan']);
       $this->db->from($table);
-      $this->db->join($table . "_detail", $table . "_detail.detail_id_transaksi = " . substr($table, 3) . "_id", "left");
+     
       if($data['jenis'] == 1){
-        $this->db->join("tb_obat","tb_obat.obat_id = ".$table."_detail.detail_id_stok","left");
+        $this->db->join($table . "_detail", $table . "_detail.detail_id_transaksi = " . substr($table, 3) . "_id", "left");
+       $this->db->join("tb_pembelian_detail", "tb_pembelian_detail.detail_id = ".$table."_detail.detail_id_stok", "left");
+       $this->db->join("tb_obat","tb_obat.obat_id = tb_pembelian_detail.detail_obat_id","left");
+       return $this->db->get()->result_array();
       }else{
-        $this->db->join("tb_obat","tb_obat.obat_id = ".$table."_detail.detail_obat_id","left");
+        if($data['cetak'] == 1){
+       
+        }else{
+          $this->db->join($table . "_detail", $table . "_detail.detail_id_transaksi = " . substr($table, 3) . "_id", "left");
+          $this->db->join("tb_obat","tb_obat.obat_id = ".$table."_detail.detail_obat_id","left");
+        }
+        return $this->db->get()->result_array();
+
       }
-      return $this->db->get()->result_array();
+     
+      
     } else {
       $this->db->select('SUM(detail_jumlah) as item_penjualan,SUM(penjualan_subtotal) as total_penjualan');
       $this->db->where("MONTH(penjualan_tanggal)", $data['bulan']);
@@ -109,6 +120,19 @@ class Model extends CI_Model
     $this->db->where("MONTH(pembelian_tanggal)", $data['bulan']);
     $this->db->from("tb_pembelian");
     $this->db->join("tb_pembelian_detail", "tb_pembelian_detail.detail_id_transaksi = pembelian_id", "left");
+    $this->db->join("tb_obat", "tb_obat.obat_id = tb_pembelian_detail.detail_obat_id", "left");
+    
+    
+    return $this->db->get()->row_array();
+  }
+
+  public function getPenjualan($data)
+  {
+    $this->db->select('SUM(detail_jumlah) as item_penjualan,SUM(penjualan_subtotal) as total_penjualan');
+    $this->db->where("MONTH(penjualan_tanggal)", $data['bulan']);
+    $this->db->from("tb_penjualan");
+    $this->db->join("tb_penjualan_detail", "tb_penjualan_detail.detail_id_transaksi = penjualan_id", "left");
+    $this->db->join("tb_pembelian_detail", "tb_pembelian_detail.detail_id_pembelian = tb_penjualan_detail.detail_ad_stok", "left");
     $this->db->join("tb_obat", "tb_obat.obat_id = tb_pembelian_detail.detail_obat_id", "left");
     
     

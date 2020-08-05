@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h2 style="text-align: center;">Laporan <?= ucfirst($jenis) ?> Bulanan</h2>
+    <h2 style="text-align: center;">Laporan Laba / Rugi Bulanan</h2>
     <h3 style="text-align: center;">Bulan <?= $bulan ?> Tahun 2020</h3>
     <hr />
 

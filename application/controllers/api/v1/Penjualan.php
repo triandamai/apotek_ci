@@ -194,7 +194,7 @@ class Penjualan extends REST_Controller {
 		        $data = array(
                     'temp_id_stok' => $jsonArray['temp_id_stok'],
 			        'temp_jumlah' => $new,
-                    'temp_totalharga' => $harga,
+                    'temp_totalharga' => (float)$harga,
                 );
                 $simpan = $this->model->update(['temp_id' =>$jsonArray['temp_id']], $data,'tb_penjualan_temp');
                 
@@ -221,7 +221,7 @@ class Penjualan extends REST_Controller {
 		        $data = array(
                 'temp_id_stok' => $jsonArray['temp_id_stok'],
 			    'temp_jumlah' => $jsonArray['temp_jumlah'],
-                'temp_totalharga' => $harga,
+                'temp_totalharga' => (float)$harga,
                 );
                 $simpan = $this->model->save($data,'tb_penjualan_temp');
                 if($simpan){
@@ -241,7 +241,8 @@ class Penjualan extends REST_Controller {
                 }
             }
         }else{
-            $ambilharga = $this->model->getSingleValue('tb_pembelian_detail', 'detail_harga_jual', ['detail_id' => $jsonArray['temp_id_stok']]);
+            $ambilharga = $this->model->getSingleValue('tb_pembelian_detail', 
+            'detail_harga_jual', ['detail_id' => $jsonArray['temp_id_stok']]);
             $harga = $ambilharga->detail_harga_jual * $jsonArray['temp_jumlah'];
  
 		    $data = array(
@@ -250,7 +251,7 @@ class Penjualan extends REST_Controller {
                 'temp_totalharga' => $harga,
             );
             $simpan = $this->model->save($data,'tb_penjualan_temp');
-        //   var_dump($simpan);
+       
             if($simpan){
                 return $this->response(array(
                     "status"                => true,
@@ -274,10 +275,6 @@ class Penjualan extends REST_Controller {
     public function penjualan_post(){
 
             $jsonArray = json_decode(file_get_contents('php://input'),true);
-       
-
-    
-            //get user input
             $subtotal = $jsonArray['subtotal'];
             //generate id transaksi
             $idtransaksi = 'PNJ-'.date('YmdHis');
@@ -286,27 +283,26 @@ class Penjualan extends REST_Controller {
             $data = array(
                 'penjualan_id_transaksi' => $idtransaksi,
                 'penjualan_tanggal' => $tanggal,
-                'penjualan_subtotal' => $subtotal,
+                'penjualan_subtotal' => (float)$subtotal,
             );
-                //save the data
-            if($this->model->save($data,'tb_penjualan')){
+            $data_insert = array();
+            $simpanpenj = $this->DataModel->insert('tb_penjualan',$data);
+            if($simpanpenj || $simpanpenj == 1){
                 $insertid =  $this->db->insert_id();
                 //insert batch data from temporary to penjualan_detail table
-                $data_insert = array();
+               
                 $query = $this->db->get('tb_penjualan_temp');
                 foreach ($query->result() as $row) {
                     $dataloop = array(
                         'detail_id_transaksi' => $insertid,
                         'detail_id_stok' => $row->temp_id_stok,
                         'detail_jumlah' => $row->temp_jumlah,
-                        'detail_harga' => $subtotal
+                        'detail_harga' => (float)$row->temp_totalharga
                     );
                     array_push($data_insert,$dataloop);
-              
                 }
-                //empty the temporary table
-                    $simpan = $this->DataModel->save_batch("tb_penjualan_detail",$data_insert);
-                    if($simpan){
+                    $simpan = $this->db->insert_batch('tb_penjualan_detail', $data_insert);
+                    if($simpan || $simpan == 1){
                         $this->db->empty_table('tb_penjualan_temp'); 
                         return $this->response(array(
                             "status"                => true,
@@ -318,7 +314,7 @@ class Penjualan extends REST_Controller {
                         return $this->response(array(
                             "status"                => false,
                             "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
-                            "response_message"      => "Gagal Mendapatkan Data",
+                            "response_message"      => "Gagal simpan penjualan",
                             "data"                  => null,
                         ), REST_Controller::HTTP_OK);
                     }
@@ -326,11 +322,11 @@ class Penjualan extends REST_Controller {
                 return $this->response(array(
                     "status"                => false,
                     "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
-                    "response_message"      => "Gagal Simpan",
+                    "response_message"      => "Gagal Simpan penjualan",
                     "data"                  => null,
                 ), REST_Controller::HTTP_OK);
             }
-                //get the last insert id
+                
    }
    public function penjualan_temp_hapus_post(){
 

@@ -22,7 +22,7 @@ class Pengaturan extends CI_Controller {
         $data['datatables'] = '0';
         //get suppliers data
         $data['pengaturan'] = $this->model->getAll('tb_pengaturan')->row();
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function simpan_data_apotek()

@@ -35,7 +35,8 @@ class Laporan extends CI_Controller
             $jenis = $this->input->post('jenis');
             $input = [
                 "bulan" => $bulan,
-                "jenis" => $jenis
+                "jenis" => $jenis,
+                "cetak" => 1
             ];
             $dataOutput = $this->model->getLaporan($input);
             $data['inJenis'] = $jenis;
@@ -65,10 +66,12 @@ class Laporan extends CI_Controller
         ];
         $input = [
             "bulan" => $bulan,
-            "jenis" => $jenis
+            "jenis" => $jenis,
+            "cetak" => 0
         ];
         $dataOutput = $this->model->getLaporan($input);
-        // die(json_encode($dataOutput));
+       // die(json_encode($dataOutput));
+
         if ($jenis == 1) {
             $j = 'penjualan';
         } else if ($jenis == 2) {
@@ -161,6 +164,8 @@ class Laporan extends CI_Controller
             $this->pdfgenerator->filename = "laporan_".$j."_bulanan.pdf";
            // <td><?= date_format(date_create($val[$jenis . '_tanggal']), 'd/m/Y') //></td>
         //    <td><?= $val[$jenis . "_id_transaksi"]></td>
+        //    echo json_encode($data);
+        //    die();
             if($jenis != 3){
                 $this->pdfgenerator->load_view('cetakLaporanPdf', $data);
             }else{
