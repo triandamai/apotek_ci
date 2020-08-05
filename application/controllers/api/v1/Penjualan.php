@@ -45,7 +45,7 @@ class Penjualan extends REST_Controller {
             }else{
                 return $this->response(array(
                     "status"                => true,
-                    "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                    "response_code"         => REST_Controller::HTTP_OK,
                     "response_message"      => "Gagal Mendapatkan Data",
                     "data"                  => array(),
                 ), REST_Controller::HTTP_OK);
@@ -70,9 +70,9 @@ class Penjualan extends REST_Controller {
             }else{
                 return $this->response(array(
                     "status"                => true,
-                    "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                    "response_code"         => REST_Controller::HTTP_OK,
                     "response_message"      => "Gagal Mendapatkan Data",
-                    "data"                  => null,
+                    "data"                  => array(),
                 ), REST_Controller::HTTP_OK);
             }
     
@@ -96,9 +96,9 @@ class Penjualan extends REST_Controller {
             }else{
                 return $this->response(array(
                     "status"                => true,
-                    "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                    "response_code"         => REST_Controller::HTTP_OK,
                     "response_message"      => "Gagal Mendapatkan Data",
-                    "data"                  => null,
+                    "data"                  => array(),
                 ), REST_Controller::HTTP_OK);
             }
     
@@ -115,9 +115,9 @@ class Penjualan extends REST_Controller {
             }else{
                 return $this->response(array(
                     "status"                => true,
-                    "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                    "response_code"         => REST_Controller::HTTP_OK,
                     "response_message"      => "Gagal Mendapatkan Data",
-                    "data"                  => null,
+                    "data"                  => array(),
                 ), REST_Controller::HTTP_OK);
             }
     
@@ -144,9 +144,9 @@ class Penjualan extends REST_Controller {
             }else{
                 return $this->response(array(
                     "status"                => true,
-                    "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                    "response_code"         => REST_Controller::HTTP_OK,
                     "response_message"      => "Gagal Mendapatkan Data",
-                    "data"                  => null,
+                    "data"                  => array(),
                 ), REST_Controller::HTTP_OK);
             }
     
@@ -167,9 +167,9 @@ class Penjualan extends REST_Controller {
             }else{
                 return $this->response(array(
                     "status"                => true,
-                    "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                    "response_code"         => REST_Controller::HTTP_OK,
                     "response_message"      => "Gagal Mendapatkan Data",
-                    "data"                  => null,
+                    "data"                  => array(),
                 ), REST_Controller::HTTP_OK);
             }
     

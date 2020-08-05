@@ -46,10 +46,10 @@ class Obat extends REST_Controller {
                 ), REST_Controller::HTTP_OK);
             }else{
                 return $this->response(array(
-                    "status"                => false,
-                    "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                    "status"                => true,
+                    "response_code"         => REST_Controller::HTTP_OK,
                     "response_message"      => "Gagal Mendapatkan Data",
-                    "data"                  => null,
+                    "data"                  => array(),
                 ), REST_Controller::HTTP_OK);
             }
     
@@ -73,9 +73,9 @@ class Obat extends REST_Controller {
             }else{
                 return $this->response(array(
                     "status"                => true,
-                    "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                    "response_code"         => REST_Controller::HTTP_OK,
                     "response_message"      => "Gagal Mendapatkan Data",
-                    "data"                  => null,
+                    "data"                  => array(),
                 ), REST_Controller::HTTP_OK);
             }
     
@@ -95,10 +95,10 @@ class Obat extends REST_Controller {
             ), REST_Controller::HTTP_OK);
         }else{
             return $this->response(array(
-                "status"                => false,
-                "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
+                "status"                => true,
+                "response_code"         => REST_Controller::HTTP_OK,
                 "response_message"      => "Gagal Mendapatkan Data",
-                "data"                  => null,
+                "data"                  => array(),
             ), REST_Controller::HTTP_OK);
         }
 
@@ -116,12 +116,12 @@ class Obat extends REST_Controller {
                "data"                  => null,
            ), REST_Controller::HTTP_OK);
        }else{
-           return $this->response(array(
-               "status"                => false,
-               "response_code"         => REST_Controller::HTTP_EXPECTATION_FAILED,
-               "response_message"      => "Gagal Mendapatkan Data",
-               "data"                  => null,
-           ), REST_Controller::HTTP_OK);
+        return $this->response(array(
+            "status"                => true,
+            "response_code"         => REST_Controller::HTTP_OK,
+            "response_message"      => "Gagal Mendapatkan Data",
+            "data"                  => array(),
+        ), REST_Controller::HTTP_OK);;
        }
 
    }
