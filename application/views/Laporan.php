@@ -105,7 +105,7 @@
                                         foreach ($dataOutput as $key => $val) {
                                     ?>
                                             <tr>
-                                                <td><?php echo $val[$jenis . '_id_transaksi'] ?></td>
+                                                <td><?php echo $val['id_transaksi'] ?></td>
                                                 <td><?php echo $val[$jenis . '_tanggal'] ?></<td>
                                                 <td><?php echo $val[$jenis . '_subtotal'] ?></td>
                                                 <td><a href="<?= base_url($jenis . '/detail/'); ?><?php echo $val[$jenis . '_id'] ?>" class="btn btn-info">Detail</a></td>

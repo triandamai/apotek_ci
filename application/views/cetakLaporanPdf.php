@@ -18,7 +18,12 @@
             <th>ID Transaksi</th> -->
             <th>Nama Obat</th>
             <th>Jumlah</th>
-            <th>Harga</th>
+            <th>Harga </th>
+            <?php if($jenis == "pembelian"){
+               ?>
+               <th>Diskon</th>
+               <?php
+            }?>
             <th>Subtotal</th>
         </tr>
         <?php
@@ -33,12 +38,28 @@
               
                 <td><?= $val["obat_nama"] ?></td>
                 <td><?= $val["detail_jumlah"] ?></td>
-                <td>Rp.<?= number_format($val["detail_harga"],0,',','.') ?></td>
-                <td>Rp.<?= number_format($val[$jenis . "_subtotal"],0,',','.') ?></td>
+                <td>Rp.<?php if($jenis == "pembelian"){
+                     echo number_format($val["detail_harga_beli"],0,',','.') ;
+                }else{
+                    echo number_format($val["detail_harga"],0,',','.');
+                } ?></td>
+                
+                <?php if($jenis == "pembelian"){?>
+                <td>
+                    <?= $val["detail_diskon"]."%";?>
+                </td>
+                <?php
+                }?>
+                
+                <td>Rp.<?php if($jenis == "pembelian"){
+                     echo number_format($val["detail_harga"],0,',','.');
+                }else{
+                    echo number_format($val["penjualan_subtotal"],0,',','.');
+                } ?></td>
             </tr>
         <?php
             $totObat += $val['detail_jumlah'];
-            $total += $val[$jenis . "_subtotal"];
+            $total += $val["detail_harga"];
         }
         ?>
     </table>

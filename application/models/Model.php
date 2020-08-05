@@ -84,21 +84,52 @@ class Model extends CI_Model
       } else if ($data['jenis'] == 2) {
         $table = "tb_pembelian";
       }
-      $this->db->select('*');
-      $this->db->where("MONTH(" . substr($table, 3) . "_tanggal)", $data['bulan']);
-      $this->db->from($table);
+ 
      
       if($data['jenis'] == 1){
-        $this->db->join($table . "_detail", $table . "_detail.detail_id_transaksi = " . substr($table, 3) . "_id", "left");
-       $this->db->join("tb_pembelian_detail", "tb_pembelian_detail.detail_id = ".$table."_detail.detail_id_stok", "left");
-       $this->db->join("tb_obat","tb_obat.obat_id = tb_pembelian_detail.detail_obat_id","left");
+        $this->db->select('
+        jual.detail_jumlah as jumlah_beli,
+        jual.detail_harga as harga_beli,
+        penjualan.penjualan_id_transaksi as id_transaksi,
+        penjualan.penjualan_tanggal as penjualan_tanggal,
+        penjualan.penjualan_subtotal as penjualan_subtotal, 
+        penjualan_id as penjualan_id,
+        obat_nama as obat_nama,
+        jual.detail_jumlah as detail_jumlah,
+        jual.detail_harga as detail_harga');
+        $this->db->where("MONTH(" . substr($table, 3) . "_tanggal)", $data['bulan']);
+        $this->db->from($table." as penjualan");
+        $this->db->join($table . "_detail AS jual", "jual.detail_id_transaksi = " . substr($table, 3) . "_id", "left");
+       $this->db->join("tb_pembelian_detail AS beli", "beli.detail_id = jual.detail_id_stok", "left");
+       $this->db->join("tb_obat as obat","obat.obat_id = beli.detail_obat_id","left");
        return $this->db->get()->result_array();
       }else{
+        
         if($data['cetak'] == 1){
-       
+         
+          $this->db->select('
+        tb_pembelian.pembelian_id_transaksi as id_transaksi,
+        tb_pembelian.pembelian_tanggal_masuk as pembelian_tanggal,
+        tb_pembelian.pembelian_subtotal as pembelian_subtotal,
+        tb_pembelian.pembelian_id as pembelian_id,
+');
+        $this->db->where("MONTH(" . substr($table, 3) . "_tanggal)", $data['bulan']);
+        $this->db->from($table);
         }else{
-          $this->db->join($table . "_detail", $table . "_detail.detail_id_transaksi = " . substr($table, 3) . "_id", "left");
-          $this->db->join("tb_obat","tb_obat.obat_id = ".$table."_detail.detail_obat_id","left");
+          $this->db->select('
+        tb_pembelian.pembelian_id_transaksi as id_transaksi,
+        tb_pembelian.pembelian_tanggal_masuk as pembelian_tanggal,
+        tb_pembelian.pembelian_subtotal as pembelian_subtotal,
+        tb_pembelian.pembelian_id as pembelian_id,
+        tb_pembelian_detail.detail_jumlah as detail_jumlah,
+        tb_pembelian_detail.detail_harga_beli as detail_harga_beli,
+        tb_pembelian_detail.detail_diskon as detail_diskon,
+        tb_pembelian_detail.detail_harga as detail_harga,
+        tb_obat.obat_nama as obat_nama');
+        $this->db->where("MONTH(" . substr($table, 3) . "_tanggal)", $data['bulan']);
+        $this->db->from($table);
+        $this->db->join($table . "_detail", $table . "_detail.detail_id_transaksi = " . substr($table, 3) . "_id", "left");
+        $this->db->join("tb_obat","tb_obat.obat_id = ".$table."_detail.detail_obat_id","left");
         }
         return $this->db->get()->result_array();
 

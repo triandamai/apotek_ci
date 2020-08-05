@@ -46,7 +46,7 @@ class Laporan extends CI_Controller
             } else if ($jenis == 2) {
                 $data['jenis'] = 'pembelian';
             } else {
-                $data['jenis'] = 'laba / rugi';
+                $data['jenis'] = 'Laba / Rugi';
                 $dataPembelian = $this->model->getPembelian($input);
                 $dataOutput = array_merge($dataOutput,$dataPembelian);
             }
@@ -70,8 +70,7 @@ class Laporan extends CI_Controller
             "cetak" => 0
         ];
         $dataOutput = $this->model->getLaporan($input);
-       // die(json_encode($dataOutput));
-
+      
         if ($jenis == 1) {
             $j = 'penjualan';
         } else if ($jenis == 2) {
