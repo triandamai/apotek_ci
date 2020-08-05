@@ -60,7 +60,7 @@ class Auth extends CI_Controller {
         $data['content'] = 'profile';
         $data['pagetitle'] = 'Profile';
         $data['profile'] = $this->model->getById('tb_user', ['user_nama' => $this->session->userdata('nama')])->row();
-        $this->load->view('template',$data);
+        $this->load->view('Template',$data);
         
     }
     //update profile page

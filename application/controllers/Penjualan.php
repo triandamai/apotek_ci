@@ -36,7 +36,7 @@ class Penjualan extends CI_Controller {
         //get data detail penjualan
         $data['penjualans'] = $this->model->getAll('tb_penjualan')->result();
        
-		$this->load->view('template',$data); 
+		$this->load->view('Template',$data); 
     }
 
 
@@ -127,7 +127,7 @@ class Penjualan extends CI_Controller {
         $data['datatables'] = '1';
         //get data detail penjualan
         $data['penjualans'] = $this->model->getAll('tb_penjualan')->result();
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function detail($id) 
@@ -152,7 +152,7 @@ class Penjualan extends CI_Controller {
         $data['details'] = $this->DataModel->order_by("detail.detail_id","ASC");
         $data['details'] = $this->DataModel->getData('tb_penjualan_detail AS detail')->result();
     
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function print($id,$id2) 

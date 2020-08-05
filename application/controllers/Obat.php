@@ -23,14 +23,14 @@ class Obat extends CI_Controller {
         $data['datatables'] = '1';
         //get data obat
         $data['obats'] = $this->model->getAll('tb_obat')->result();
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function tambah()
     {
         $data['content'] = 'TambahObat';
         $data['pagetitle'] = 'Tambah Obat';
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function save() {
@@ -59,7 +59,7 @@ class Obat extends CI_Controller {
         $data['pagetitle'] = 'Edit Obat';
         //get data obat based on id
         $data['obats'] = $this->model->getById('tb_obat', ['obat_id' => $id])->row();
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function update() {

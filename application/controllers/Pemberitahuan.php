@@ -88,7 +88,7 @@ class Pemberitahuan extends CI_Controller {
                 }
                 $data['notifikasi'] = $hasil;
           
-                $this->load->view('template',$data);   
+                $this->load->view('Template',$data);   
         
           
         }

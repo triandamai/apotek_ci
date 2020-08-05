@@ -43,8 +43,8 @@
                     <?php 
                     if ($asd != null ) { 
                       echo  $asd;
-                    }elseif($this->session->flashdata('id_supplier') != ""){
-                      echo $this->session->flashdata('id_supplier');
+                    }elseif($this->session->flashdata('nama_supplier') != ""){
+                      echo $this->session->flashdata('nama_supplier');
                     }else{
                       echo $supplier->supplier_nama; 
                       } ?>
@@ -203,10 +203,18 @@
                     <input type="submit" class="btn btn-info pull-right" name="submit"/>
                 </div>
               </div>
-              <input type="hidden" name="ids" value="<?php if($asd != null) {
+              <input type="hidden" name="ids" value="<?php 
+              if($id != null) {
+                echo $id;
+             }else{
+                echo $this->session->flashdata('id_supplier'); 
+            }
+            ?>">
+            <input type="hidden" name="nama_supp" value="<?php 
+              if($asd != null) {
                 echo $asd;
-            }else{
-            echo $this->session->flashdata('id_supplier'); 
+             }else{
+                echo $this->session->flashdata('nama_supplier'); 
             }
             ?>">
               <!-- /.box-footer -->

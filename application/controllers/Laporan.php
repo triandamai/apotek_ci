@@ -51,7 +51,7 @@ class Laporan extends CI_Controller
             }
             $data['dataOutput'] = $dataOutput;
         }
-        $this->load->view('template', $data);
+        $this->load->view('Template', $data);
     }
 
 

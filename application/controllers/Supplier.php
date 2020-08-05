@@ -20,14 +20,14 @@ class Supplier extends CI_Controller {
         $data['datatables'] = '1';
         //get suppliers data
         $data['suppliers'] = $this->model->getAll('tb_supplier')->result();
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function tambah()
     {
         $data['content'] = 'TambahSupplier';
         $data['pagetitle'] = 'Tambah Supplier';
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function save() {
@@ -54,7 +54,7 @@ class Supplier extends CI_Controller {
         $data['pagetitle'] = 'Edit Supplier';
         //get suppliers data based on id
         $data['supplier'] = $this->model->getById('tb_supplier', ['supplier_id' => $id])->row();
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function update() {

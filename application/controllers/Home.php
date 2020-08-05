@@ -20,7 +20,7 @@ class Home extends CI_Controller {
         //get data penjualan and pembelian based on the day and month now
         $data['query'] = $this->model->getjumlahpenjualan($bulan, $day);
         $data['query1'] = $this->model->getjumlahpembelian($bulan, $day);
-        $this->load->view('template',$data);
+        $this->load->view('Template',$data);
         
     }
 

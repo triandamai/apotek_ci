@@ -27,8 +27,7 @@ class Pembelian extends CI_Controller {
         $id =$this->input->post('nama_supplier');
         if($id != null){
             $hasil = $this->model->getById('tb_supplier',array('supplier_id'=>$id))->row();
-        // var_dump($hasil->supplier_nama);
-        // die();
+ 
             $data['asd'] = $hasil->supplier_nama;
             $data['id'] = $hasil->supplier_id;
         }else{
@@ -44,7 +43,7 @@ class Pembelian extends CI_Controller {
         $data['temp'] = $this->DataModel->getJoin('tb_obat as obat','obat.obat_id = temp.temp_obat_id','INNER');
         $data['temp'] = $this->DataModel->getData('tb_pembelian_temp AS temp')->result();
        
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function save() {
@@ -112,7 +111,8 @@ class Pembelian extends CI_Controller {
        
         $expired = $this->input->post('expired');
         $diskon = $this->input->post('diskon');
-        $id_supplier = $this->input->post('id');
+        $id_supplier = $this->input->post('ids');
+        $id_nama_supp = $this->input->post('nama_supp');
         $jumlah = $this->input->post('jumlah');
         //check if temporary data exist with the same nama obat
         $check = $this->model->getById('tb_pembelian_temp', ['temp_obat_id' => $nama_obat])->num_rows();
@@ -142,7 +142,7 @@ class Pembelian extends CI_Controller {
             );
             $this->model->save($data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);
-       
+            $this->session->set_flashdata('nama_supplier',$id_nama_supp);
             redirect('pembelian/index');
             //if data exist, update the data
         }elseif($check > 0) {
@@ -169,7 +169,7 @@ class Pembelian extends CI_Controller {
             );
             $this->model->update(['temp_obat_id' => $nama_obat], $data,'tb_pembelian_temp');
             $this->session->set_flashdata('id_supplier',$id_supplier);
-     
+            $this->session->set_flashdata('nama_supplier',$id_nama_supp);
             redirect('pembelian/index');
         } 
     }
@@ -193,7 +193,7 @@ class Pembelian extends CI_Controller {
         $data['pembelians'] = $this->DataModel->getJoin('tb_supplier as s','s.supplier_id = p.pembelian_id_supplier','INNER');
         $data['pembelians'] = $this->DataModel->getData('tb_pembelian AS p')->result();
        
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function detail($id) 
@@ -215,7 +215,7 @@ class Pembelian extends CI_Controller {
         $data['pembelians'] = $this->db->where("p.pembelian_id ",$id);
         $data['pembelians'] = $this->DataModel->getData('tb_pembelian AS p')->row();
       
-		$this->load->view('template',$data);   
+		$this->load->view('Template',$data);   
     }
 
     public function print($id,$id2) 
