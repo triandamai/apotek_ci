@@ -52,9 +52,9 @@
                 }?>
                 
                 <td>Rp.<?php if($jenis == "pembelian"){
-                     echo number_format($val["detail_harga"],0,',','.');
+                     echo number_format($val["detail_harga"]*$val["detail_jumlah"],0,',','.');
                 }else{
-                    echo number_format($val["penjualan_subtotal"],0,',','.');
+                    echo number_format($val["detail_harga"]*$val["detail_jumlah"],0,',','.');
                 } ?></td>
             </tr>
         <?php

@@ -122,7 +122,7 @@ class Laporan extends CI_Controller
                 foreach ($dataOutput as $key => $val) {
                     $sheet->setCellValue('A' . $i, $no);
                     $sheet->setCellValue('B' . $i, date_format(date_create($val[$j . '_tanggal']), 'd/m/Y'));
-                    $sheet->setCellValue('C' . $i, $val[$j . "_id_transaksi"]);
+                    $sheet->setCellValue('C' . $i, $val["id_transaksi"]);
                     $sheet->setCellValue('D' . $i, $val["obat_nama"]);
                     $sheet->setCellValue('E' . $i, $val["detail_jumlah"]);
                     $sheet->setCellValue('F' . $i, $val["detail_harga"]);
